@@ -1,9 +1,7 @@
 import { Request, Response, json } from "express";
 import Car , {ICar} from "../models/Cars";
 import Agency, { IAgency } from "../models/Agency";
-
-
-const Joi = require("joi");
+import Joi from "joi";
 
 const registrationSchema = Joi.object({
   brand: Joi.string().required(),
