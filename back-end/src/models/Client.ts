@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Mongoose } from "mongoose";
 import User from "./User";
 
 export interface IClient extends Document {
@@ -17,7 +17,7 @@ const clientSchema = new mongoose.Schema({
     cin: { type: String, required: true },
     numeroPermis: { type: String, required: true },
     country: { type: String, required: true },
-    reservations: { type: String, required: true },
+    reservations: { type:[ mongoose.Types.ObjectId], required: true , default: []},
 
 
   createdAt: {
