@@ -1,7 +1,7 @@
 import { Request, Response, json } from "express";
 import Reservation, { IReservation } from "../models/Reservation";
 
-const Joi = require("joi");
+import Joi from "joi";
 
 const registrationSchema = Joi.object({
     pickupDate: Joi.string().required(),
