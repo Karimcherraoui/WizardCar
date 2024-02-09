@@ -3,7 +3,7 @@ import "dotenv/config"
  
 
 const db = mongoose
-const link = process.env.CONNECTION_LINK
+const link = process.env.CONNECTION_LINK!
 
   mongoose.connect(link)
   .then(() => {
