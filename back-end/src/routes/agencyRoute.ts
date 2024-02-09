@@ -1,6 +1,7 @@
 
 import { Router} from "express";
 import { agencyController } from "../controllers/agencyController";
+import { authenticateToken } from "../middleware/jwt";
 
 
 
@@ -8,7 +9,7 @@ import { agencyController } from "../controllers/agencyController";
 
 const routerAgency = Router();
 
-routerAgency.post("/", agencyController.createAgency);
+routerAgency.use(authenticateToken);
 routerAgency.get("/", agencyController.getAllAgencys);
 routerAgency.get("/:id", agencyController.getAgency);
 routerAgency.patch("/:id", agencyController.updateAgency);
