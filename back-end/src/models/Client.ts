@@ -4,21 +4,26 @@ import User from "./User";
 export interface IClient extends Document {
   firstName: string;
   lastName: string;
-  cin: string; 
+  cin: string;
   numeroPermis: string;
   country: string;
   reservations: mongoose.Types.ObjectId[];
   cars: mongoose.Types.ObjectId[];
+  idUser: mongoose.Types.ObjectId;
 }
 
 const clientSchema = new mongoose.Schema({
-    firstName: { type: String, required: true , unique: true },
-    lastName: { type: String, required: true },
-    cin: { type: String, required: true },
-    numeroPermis: { type: String, required: true },
-    country: { type: String, required: true },
-    reservations: { type:[ mongoose.Types.ObjectId], required: true , default: []},
-
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  cin: { type: String, required: true, unique: true },
+  numeroPermis: { type: String, required: true, unique: true },
+  country: { type: String, required: true },
+  reservations: {
+    type: [mongoose.Types.ObjectId],
+    required: true,
+    default: [],
+    ref: "reservations",
+  },
 
   createdAt: {
     type: Date,
@@ -26,12 +31,8 @@ const clientSchema = new mongoose.Schema({
   },
   idUser: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user', 
+    ref: "user",
   },
-  reservation: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'reservations', 
-  }],
 });
 
 const clients = mongoose.model<IClient>("clients", clientSchema);
