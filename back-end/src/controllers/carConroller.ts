@@ -2,18 +2,18 @@ import { Request, Response, json } from "express";
 import Car , {ICar} from "../models/Cars";
 import Agency, { IAgency } from "../models/Agency";
 import Joi from "joi";
+import z from "zod";
 
-const registrationSchema = Joi.object({
-  brand: Joi.string().required(),
-  model: Joi.string().required(),
-  year: Joi.number().required(),
-  color: Joi.string().min(3).max(10).required(),
-  price: Joi.number().required(),
-  plateNumber: Joi.string().required(),
-  feedback: Joi.string().required(),
-  disponibility: Joi.string().required(),
-  agency: Joi.string().required(),
-  
+const registrationSchema = z.object({
+  brand: z.string(),
+  model: z.string(),
+  year: z.number(),
+  color: z.string(),
+  price: z.number(),
+  plateNumber: z.string(),
+  feedback: z.string(),
+  disponibility: z.boolean(),
+  agency: z.string(),
 });
 
 export const carController = {
@@ -38,10 +38,7 @@ export const carController = {
 
   createCar: async (req: Request, res: Response) => {
     try {
-      const { error } = registrationSchema.validate(req.body);
-      if (error) {
-        return res.status(400).json({ error: error.details[0].message });
-      }
+      const data = registrationSchema.parse(req.body);
 
       const {
         brand,
@@ -53,24 +50,9 @@ export const carController = {
         feedback,
         disponibility,
 
-      } = req.body;
+      } = data;
 
-      if (
-        !(
-          brand &&
-          model &&
-          year &&
-          color &&
-          price &&
-          plateNumber &&
-          feedback &&
-          disponibility
-        )
-      ) {
-        return res
-          .status(400)
-          .json({ error: "Please provide all required fields" });
-      }
+
       const newCar: ICar  = new Car({
         brand,
         model,
@@ -82,20 +64,22 @@ export const carController = {
         disponibility,
       });
       const savedCar = await newCar.save();
-      const agencyId = req.body.agency;
+      const agencyId = data.agency;
       const agency = await Agency.findById(agencyId);
     if (agency) {
       agency.cars.push(savedCar._id);
       await agency.save();
     }
-
-
       res.status(201).json({
         message: "Car created successfully",
         car: savedCar,
       });
     } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: error.errors[0].message });
+      }
       console.error(error);
+
     }
   },
 

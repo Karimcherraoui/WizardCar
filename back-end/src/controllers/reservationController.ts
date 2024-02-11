@@ -2,14 +2,15 @@ import { Request, Response, json } from "express";
 import Reservation, { IReservation } from "../models/Reservation";
 
 import Joi from "joi";
+import z from "zod";
 
-const registrationSchema = Joi.object({
-    pickupDate: Joi.string().required(),
-    returnDate: Joi.string().required(),
-    totalPrice: Joi.number().required(),
-    status: Joi.string(),
-    idClient: Joi.string().required(),
-    idCar: Joi.string().required(),
+const registrationSchema = z.object({
+  pickupDate: z.string(),
+  returnDate: z.string(),
+  totalPrice: z.number(),
+  status: z.string(),
+  idClient: z.string(),
+  idCar: z.string(),
 });
 
 export const reservationController = {
@@ -34,10 +35,8 @@ export const reservationController = {
 
   createReservation: async (req: Request, res: Response) => {
     try {
-      const { error } = registrationSchema.validate(req.body);
-      if (error) {
-        return res.status(400).json({ error: error.details[0].message });
-      }
+      const data = registrationSchema.parse(req.body);
+ 
 
       const {
         pickupDate,
@@ -47,45 +46,25 @@ export const reservationController = {
 
         idClient,
         idCar,
-      } = req.body;
-
-      if (
-        !(
-            pickupDate &&
-            returnDate &&
-            totalPrice &&
-            status &&
-
-            idClient &&
-            idCar
-            
-        )
-      ) {
-        return res
-          .status(400)
-          .json({ error: "Please provide all required fields" });
-      }
+      } = data;
 
       const newResrvation: IReservation = new Reservation({
-        
         pickupDate ,
         returnDate ,
         totalPrice ,
         status ,
         idClient ,
         idCar
-
       });
       const savedReservation = await newResrvation.save();
-
-
-
-
       res.status(201).json({
         message: "Reservation created successfully",
         reservation: savedReservation,
       });
     } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: error.errors[0].message });
+      }
       console.error(error);
     }
   },

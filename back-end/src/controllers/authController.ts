@@ -4,35 +4,34 @@ import User, { IUser } from "../models/User";
 import argon2 from "argon2";
 import clients, { IClient } from "../models/Client";
 import agencys, { IAgency } from "../models/Agency";
-import {z} from "zod";
+import { z } from "zod";
 
 const loginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
-})
-;
+});
 type loginSchemaType = z.infer<typeof loginSchema>;
 const registrationSchema = z.object({
   phone: z.string().regex(/^[0-9]{10}$/g),
   email: z.string(),
-  password: z.string() ,
-  role: z.string() ,
-  firstName: z.string() ,
-  lastName: z.string() ,
-  cin: z.string() ,
-  numeroPermis: z.string() ,
-  country: z.string() ,
-
+  password: z.string(),
+  role: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  cin: z.string(),
+  numeroPermis: z.string(),
+  country: z.string(),
 });
+// type registrationSchemaType = z.infer<typeof registrationSchema >
 
 const registrationAgencySchema = z.object({
-  phone: z.number() ,
-  email: z.string() ,
-  password: z.string() ,
-  role: z.string() ,
-  agencyName: z.string() ,
-  address: z.string() ,
-  availableCars: z.number() ,
+  phone: z.string().regex(/^[0-9]{10}$/g),
+  email: z.string(),
+  password: z.string(),
+  role: z.string(),
+  agencyName: z.string(),
+  address: z.string(),
+  availableCars: z.string(),
 });
 
 export const AuthController = {
@@ -50,22 +49,21 @@ export const AuthController = {
         return res.status(400).json({ error: "Invalid password" });
       }
 
-      const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET!);
-      
-     return res.json({ token });
+      const token = jwt.sign({ id: user._id}, process.env.TOKEN_SECRET!);
 
+      console.log(token);
+
+      return res.json({ token });
     } catch (error) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: error.errors[0].message });
       }
     }
-
-
   },
   registerClient: async (req: Request, res: Response) => {
     try {
-      const data = registrationSchema. parse(req.body);
-    
+      const data = registrationSchema.parse(req.body);
+
       const {
         firstName,
         lastName,
@@ -77,6 +75,7 @@ export const AuthController = {
         password,
         role,
       } = data;
+
       const hashedPassword = await argon2.hash(password);
 
       const newUser: IUser = new User({
@@ -85,7 +84,6 @@ export const AuthController = {
         password: hashedPassword,
         role,
       });
-      const savedUser = await newUser.save();
 
       const newClient: IClient = new clients({
         firstName,
@@ -93,12 +91,14 @@ export const AuthController = {
         cin,
         numeroPermis,
         country,
-        idUser: savedUser._id,
       });
 
       const savedClient = await newClient.save();
-      savedUser.idUser = savedClient._id;
-      await savedUser.save();
+
+      newUser.referredUser = savedClient._id;
+      const savedUser = await newUser.save();
+      newClient.idUser = savedUser._id;
+      await newClient.save();
 
       res.status(201).json({
         message: "Client created successfully",
@@ -108,17 +108,15 @@ export const AuthController = {
     } catch (error) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: error.errors[0].message });
-      }    
-      console.log(error);
-      
+      }
+      console.error(error);
       return res.status(500).json({ error: "Internal server error" });
     }
   },
 
   registerAgency: async (req: Request, res: Response) => {
     try {
-      const data = registrationAgencySchema. parse(req.body);
-     
+      const data = registrationAgencySchema.parse(req.body);
 
       const {
         phone,
@@ -128,42 +126,29 @@ export const AuthController = {
         agencyName,
         address,
         availableCars,
-      } =data;
+      } = data;
 
-      if (
-        !(
-          agencyName &&
-          address &&
-          availableCars &&
-          phone &&
-          email &&
-          password &&
-          role
-        )
-      ) {
-        return res
-          .status(400)
-          .json({ error: "Please provide all required fields" });
-      }
+      const hashedPassword = await argon2.hash(password);
 
       const newUser: IUser = new User({
         phone,
         email,
-        password,
+        password: hashedPassword,
         role,
       });
-      const savedUser = await newUser.save();
 
       const newAgency: IAgency = new agencys({
         agencyName,
         address,
         availableCars,
-        idUser: savedUser._id,
       });
 
       const savedAgency = await newAgency.save();
-      savedUser.idUser = savedAgency._id;
-      await savedUser.save();
+
+      newUser.referredUser = savedAgency._id;
+      const savedUser = await newUser.save();
+      newAgency.idUser = savedUser._id;
+      await newAgency.save();
 
       res.status(201).json({
         message: "Agency created successfully",
@@ -173,6 +158,7 @@ export const AuthController = {
     } catch (error) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: error.errors[0].message });
-      }    }
+      }
+    }
   },
 };
