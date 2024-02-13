@@ -10,7 +10,7 @@ const loginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
 });
-type loginSchemaType = z.infer<typeof loginSchema>;
+
 const registrationSchema = z.object({
   phone: z.string().regex(/^[0-9]{10}$/g),
   email: z.string(),
@@ -22,7 +22,6 @@ const registrationSchema = z.object({
   numeroPermis: z.string(),
   country: z.string(),
 });
-// type registrationSchemaType = z.infer<typeof registrationSchema >
 
 const registrationAgencySchema = z.object({
   phone: z.string().regex(/^[0-9]{10}$/g),
@@ -31,7 +30,7 @@ const registrationAgencySchema = z.object({
   role: z.string(),
   agencyName: z.string(),
   address: z.string(),
-  availableCars: z.string(),
+
 });
 
 export const AuthController = {
@@ -125,7 +124,6 @@ export const AuthController = {
         role,
         agencyName,
         address,
-        availableCars,
       } = data;
 
       const hashedPassword = await argon2.hash(password);
@@ -140,7 +138,6 @@ export const AuthController = {
       const newAgency: IAgency = new agencys({
         agencyName,
         address,
-        availableCars,
       });
 
       const savedAgency = await newAgency.save();
