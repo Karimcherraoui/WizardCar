@@ -1,6 +1,7 @@
 import { Request, Response, json } from "express";
-import Agency, { IAgency } from "../models/Agency";
-import User,{ IUser } from "../models/User";
+import Agency from "../models/Agency";
+
+
 
 
 
@@ -26,7 +27,7 @@ export const agencyController = {
   },
 
   
-
+ 
   updateAgency: async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
