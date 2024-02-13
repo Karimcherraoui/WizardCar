@@ -1,28 +1,29 @@
-import mongoose, { Date, Document } from "mongoose";
-import User from "./User";
+import mongoose, {Document } from "mongoose";
+
 
 export interface IReservation extends Document {
   pickupDate: string;
   returnDate: string;
-  totalPrice: number; 
+  price: string;
   status: string;
-  car: mongoose.Types.ObjectId;
+  idCar: mongoose.Types.ObjectId;
+  idClient:mongoose.Types.ObjectId;
 }
 
 const reservationSchema = new mongoose.Schema({
-    
-    pickupDate: { type: String, required: true  },
-    returnDate: { type: String, required: true },
-    totalPrice: { type: Number, required: true },
-    status: { 
-        type: String,
-        enum: ["En attente", "Confirmée", "Annulée"],
-        default: "En attente",
-        },
-    car: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'cars', 
-    },
+  pickupDate: { type: String, required: true },
+  returnDate: { type: String, required: true },
+  price: { type: String, required: true },
+  totalPrice: { type: String },
+  status: {
+    type: String,
+    enum: ["En attente", "Confirmée", "Annulée"],
+    default: "En attente",
+  },
+  idCar: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "cars",
+  },
 
   createdAt: {
     type: Date,
@@ -30,10 +31,12 @@ const reservationSchema = new mongoose.Schema({
   },
   idClient: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user', 
+    ref: "user",
   },
- 
 });
 
-const reservation = mongoose.model<IReservation>("reservations", reservationSchema);
+const reservation = mongoose.model<IReservation>(
+  "reservations",
+  reservationSchema
+);
 export default reservation;
