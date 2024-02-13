@@ -1,19 +1,20 @@
 import { Request, Response, json } from "express";
 import Car , {ICar} from "../models/Cars";
 import Agency, { IAgency } from "../models/Agency";
-import Joi from "joi";
+
 import z from "zod";
+import Cars from "../models/Cars";
 
 const registrationSchema = z.object({
   brand: z.string(),
   model: z.string(),
-  year: z.number(),
+  year: z.string(),
   color: z.string(),
-  price: z.number(),
+  price: z.string(),
   plateNumber: z.string(),
   feedback: z.string(),
-  disponibility: z.boolean(),
-  agency: z.string(),
+  disponibility: z.string(),
+  idAgency: z.string(),
 });
 
 export const carController = {
@@ -49,7 +50,7 @@ export const carController = {
         plateNumber,
         feedback,
         disponibility,
-
+        idAgency
       } = data;
 
 
@@ -62,12 +63,17 @@ export const carController = {
         plateNumber,
         feedback,
         disponibility,
-      });
+        idAgency   
+         });
       const savedCar = await newCar.save();
-      const agencyId = data.agency;
+      
+      const agencyId = data.idAgency;
       const agency = await Agency.findById(agencyId);
+
+      
     if (agency) {
       agency.cars.push(savedCar._id);
+
       await agency.save();
     }
       res.status(201).json({
@@ -80,6 +86,25 @@ export const carController = {
       }
       console.error(error);
 
+    }
+  },
+
+  returnCar: async (req:Request, res:Response)=>{
+    const {id} = req.params
+    try{
+      const car = await Car.findById(id);
+      if (!car) {
+        return res.status(404).json({ error: "Car not found" });
+      }else{
+        car.disponibility = "Disponible"
+        await car.save()
+        }
+      res.status(200).json({
+        message: "Car Disponible",
+      });
+
+    }catch(error){
+      console.error(error)
     }
   },
 
