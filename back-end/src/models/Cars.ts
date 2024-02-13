@@ -5,15 +5,15 @@ import mongoose, { Document } from "mongoose";
 export interface ICar extends Document {
   brand: string;
   modele: string;
-  year: number;
+  year: string;
   color: string;
-  price: number;
+  price: string;
   plateNumber: string;
   feedback: string;
   disponibility: string;
   createdAt: Date;
-  agency: mongoose.Types.ObjectId; 
-  client: mongoose.Types.ObjectId;
+  idAgency: mongoose.Types.ObjectId; 
+  idClient: mongoose.Types.ObjectId;
 }
 
 const carsSchema = new mongoose.Schema({
@@ -34,11 +34,11 @@ const carsSchema = new mongoose.Schema({
     type: Date,
     default: new Date(),
   },  
-  agency: {
+  idAgency: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'agencys', 
   },
-  client: {
+  idClient: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'clients', 
   },
