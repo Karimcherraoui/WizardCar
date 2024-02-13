@@ -9,7 +9,6 @@ import { checkRole } from "../middleware/checkRole";
 
 
 const routerClient = Router();
-
 routerClient.use(authenticateToken);
 routerClient.get("/", clientController.getAllClients);
 routerClient.get("/:id", clientController.getClient);
