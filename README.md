@@ -40,6 +40,9 @@ WizardCar Backend is the server-side component of the WizardCar application. It 
 
 `npm install`
 
+### Start the project 
+`npm start`
+
 ## Create a .env file in the root directory
 CONNECTION_LINK = mongodb:[YOUR-LOCALHOST:PORT]/WizardCar 
 TOKEN_SECRET = 123456
