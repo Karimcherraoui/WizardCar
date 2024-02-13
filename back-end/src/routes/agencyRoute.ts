@@ -2,9 +2,9 @@ import { Router } from "express";
 import { agencyController } from "../controllers/agencyController";
 import { authenticateToken } from "../middleware/jwt";
 import { checkRole } from "../middleware/checkRole";
+import router from "routes";
 
 const routerAgency = Router();
-
 routerAgency.get("/", agencyController.getAllAgencys);
 routerAgency.get("/:id", agencyController.getAgency);
 routerAgency.use(authenticateToken);
