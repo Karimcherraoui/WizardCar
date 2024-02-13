@@ -1,9 +1,21 @@
 import { Request, Response, json } from "express";
 import Client, { IClient } from "../models/Client";
+import user, { IUser } from "../models/User";
+import z from "zod";
+import { MongoServerError } from "mongodb";
 
 
-
-
+const registrationSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  cin: z.string(),
+  numeroPermis: z.string(),
+  country: z.string(),
+  phone: z.string(),
+  email: z.string(),
+  password: z.string(),
+  role: z.string(),
+});
 
 export const clientController = {
   getAllClients: async (req: Request, res: Response) => {
@@ -25,6 +37,7 @@ export const clientController = {
     }
   },
 
+  
   updateClient: async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
