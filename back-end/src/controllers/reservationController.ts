@@ -78,17 +78,17 @@ const newResrvation: IReservation = new Reservation({
 });
 
 const client = await clients.findById(idClient);
-      console.log(client);
+
       if(!client){
         return  console.log("Client Not Found");
       }
       if(!car){
         return  res.status(404).json({error:"Car not Found"})
       }else{
-        if(car.disponibility === "Non Disponible"){
+        if(car.disponibility === "Non disponible"){
           return  res.status(406).json({error:"The Car Already Reserved"})
         }
-        car.disponibility =  "Non Disponible"
+        car.disponibility =  "Non disponible"
         await car.save();
       }
       
