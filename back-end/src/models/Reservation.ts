@@ -1,4 +1,6 @@
+import { object } from "joi";
 import mongoose, {Document } from "mongoose";
+import { ReservationEnum} from "./enum";
 
 
 export interface IReservation extends Document {
@@ -17,13 +19,13 @@ const reservationSchema = new mongoose.Schema({
   totalPrice: { type: String },
   status: {
     type: String,
-    enum: ["En attente", "Confirmée", "Annulée"],
-    default: "En attente",
+    enum: Object.values(ReservationEnum),
+    default: ReservationEnum.ATTENTE ,
   },
   idCar: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "cars",
-  },
+  },  
 
   createdAt: {
     type: Date,
