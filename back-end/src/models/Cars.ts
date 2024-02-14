@@ -1,4 +1,5 @@
 import mongoose, { Document } from "mongoose";
+import { disponibilityEnum } from "./enum";
 
 
 
@@ -8,8 +9,10 @@ export interface ICar extends Document {
   year: string;
   color: string;
   price: string;
+  fuel: string;
+  transmission: string;
+  type: string;
   plateNumber: string;
-  feedback: string;
   disponibility: string;
   createdAt: Date;
   idAgency: mongoose.Types.ObjectId; 
@@ -23,13 +26,16 @@ const carsSchema = new mongoose.Schema({
   year: { type: Number, required: true },
   color: { type: String, required: true  },
   price: { type: Number, required: true },
+  fuel: { type: String, required: true },
+  transmission: { type: String, required: true },
+  type: { type: String, required: true },
   plateNumber: { type: String, required: true , unique: true },
-  feedback: { type: String, required: true  },
   disponibility: {
     type: String,
-    enum: ["Disponible", "Non Disponible"],
-    default: "Disponible",
+    enum: Object.values(disponibilityEnum),
+    default: disponibilityEnum.DISPONIBLE,
   },
+
   createdAt: {
     type: Date,
     default: new Date(),
