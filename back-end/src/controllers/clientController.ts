@@ -41,13 +41,13 @@ export const clientController = {
   updateClient: async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-      const client = await Client.findById(id);
-      if (!client) {
-        return res.status(404).json({ error: "Client not found" });
-      }
+
       const updatedClient = await Client.findByIdAndUpdate(id, req.body, {
         new: true,
       });
+      if (!updatedClient) {
+        return res.status(404).json({ error: "Client not found" });
+      }
       res.status(200).json({
         message: "Client updated successfully",
         Client: updatedClient,
@@ -60,14 +60,14 @@ export const clientController = {
   deleteClient: async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-      const client = await Client.findById(id);
-      if (!client) {
-        return res.status(404).json({ error: "Client not found" });
-      }
-      await Client.findByIdAndDelete(id);
+  
+      const deleteClient = await Client.findByIdAndDelete(id);
       res.status(200).json({
         message: "Client deleted successfully",
       });
+      if(!deleteClient){
+        return res.status(404).json({ error: "Client not found" });
+      }
     } catch (error) {
       console.error(error);
     }
