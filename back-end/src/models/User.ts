@@ -1,4 +1,5 @@
 import mongoose, { Document } from "mongoose";
+import { RoleEnum } from "./enum";
 
 export interface IUser extends Document {
   phone: string;
@@ -8,22 +9,16 @@ export interface IUser extends Document {
   referredUser?: mongoose.Types.ObjectId;
 }
 
-const UserReferenceSchema = new mongoose.Schema({
-  agency: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Agency",
-  },
-  client: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Client",
-  },
-});
+
 
 const userSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   email: { type: String, trim: true, lowercase: true, unique: true, required: true },
   password: { type: String, min: 6, required: true },
-  role: { type: String, enum: ["admin", "agency", "client"], default: "client" },
+  role: { type: String, 
+    enum: Object.values( RoleEnum),
+    default: RoleEnum.CLIENT
+   },
   referredUser: { type: mongoose.Schema.Types.ObjectId }, 
   createdAt: { type: Date, default: new Date() }
 });
