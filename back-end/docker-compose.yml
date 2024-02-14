@@ -1,0 +1,20 @@
+version: "4"
+services:    
+  backend:
+    container_name: backend-Car
+    image: backend-car
+    ports: 
+      - "3005:3005"
+    build: "."
+    depends_on:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports: 
+      - "27017:27017"
+
+
+
+
+      # docker-compose up --build
