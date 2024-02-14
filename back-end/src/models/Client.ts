@@ -1,5 +1,4 @@
-import mongoose, { Document, Mongoose } from "mongoose";
-import User from "./User";
+import mongoose, { Document } from "mongoose";
 
 export interface IClient extends Document {
   firstName: string;
