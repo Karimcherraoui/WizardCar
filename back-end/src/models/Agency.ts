@@ -1,6 +1,5 @@
 import mongoose, { Document } from "mongoose";
 
-
 export interface IAgency extends Document {
   agencyName: string;
   address: string; 
