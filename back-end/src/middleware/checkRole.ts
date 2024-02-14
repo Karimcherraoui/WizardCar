@@ -13,7 +13,7 @@ client: async  (
     res: Response,
     next: NextFunction
     ) => {
-        console.log("Client authentication");
+
         try {
             const userId =(req as UserRequest).user.userId;
             const user = await User.findById(userId );
@@ -35,7 +35,6 @@ agency: async  (
     res: Response,
     next: NextFunction
     ) => {
-            console.log("Agency authentication");
             
         try {
             const userId =(req as UserRequest).user.userId;
