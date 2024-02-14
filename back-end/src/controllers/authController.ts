@@ -30,7 +30,6 @@ const registrationAgencySchema = z.object({
   role: z.string(),
   agencyName: z.string(),
   address: z.string(),
-
 });
 
 export const AuthController = {
@@ -48,9 +47,7 @@ export const AuthController = {
         return res.status(400).json({ error: "Invalid password" });
       }
 
-      const token = jwt.sign({ id: user._id}, process.env.TOKEN_SECRET!);
-
-      console.log(token);
+      const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET!);
 
       return res.json({ token });
     } catch (error) {
@@ -75,36 +72,35 @@ export const AuthController = {
         role,
       } = data;
 
-      const hashedPassword = await argon2.hash(password);
-
-      const newUser: IUser = new User({
-        phone,
-        email,
-        password: hashedPassword,
-        role,
-      });
-
-      const newClient: IClient = new clients({
+      const newClient: IClient = await clients.create({
         firstName,
         lastName,
         cin,
         numeroPermis,
         country,
       });
+     
+      const hashedPassword = await argon2.hash(password);
 
-      const savedClient = await newClient.save();
-
-      newUser.referredUser = savedClient._id;
-      const savedUser = await newUser.save();
-      newClient.idUser = savedUser._id;
+      const newUser: IUser = await User.create({
+        phone,
+        email,
+        password: hashedPassword,
+        role,
+        referredUser: newClient._id,
+      });
+      newClient.idUser = newUser._id;
       await newClient.save();
 
       res.status(201).json({
         message: "Client created successfully",
-        Client: savedClient,
-        user: savedUser,
+        client: newClient,
+        user: newUser,
       });
     } catch (error) {
+      if ((error as { name: string; code: number }).name === 'MongoServerError' && (error as { name: string; code: number }).code === 11000) {
+        return res.status(400).json({ error: "A client with the same information already exists." });
+      }
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: error.errors[0].message });
       }
@@ -115,47 +111,45 @@ export const AuthController = {
 
   registerAgency: async (req: Request, res: Response) => {
     try {
+
       const data = registrationAgencySchema.parse(req.body);
 
-      const {
-        phone,
-        email,
-        password,
-        role,
+      const { phone, email, password, role, agencyName, address } = data;
+
+      const newAgency: IAgency = await agencys.create({
         agencyName,
         address,
-      } = data;
+      });
 
       const hashedPassword = await argon2.hash(password);
 
-      const newUser: IUser = new User({
+      const newUser: IUser = await User.create({
         phone,
         email,
         password: hashedPassword,
         role,
+        referredUser: newAgency._id,
       });
 
-      const newAgency: IAgency = new agencys({
-        agencyName,
-        address,
-      });
-
-      const savedAgency = await newAgency.save();
-
-      newUser.referredUser = savedAgency._id;
-      const savedUser = await newUser.save();
-      newAgency.idUser = savedUser._id;
+      newAgency.idUser = newUser._id;
       await newAgency.save();
 
       res.status(201).json({
         message: "Agency created successfully",
-        agency: savedAgency,
-        user: savedUser,
+        agency: newAgency,
+        user: newUser,
       });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({ error: error.errors[0].message });
+      } catch (error) {
+        if ((error as { name: string; code: number }).name === 'MongoServerError' && (error as { name: string; code: number }).code === 11000) {
+          return res.status(400).json({ error: "Agency with the same name already exists" });
+        }
+
+        if (error instanceof z.ZodError) {
+          return res.status(400).json({ error: error.errors[0].message });
+        }
+
+        console.error(error);
+        return res.status(500).json({ error: "Internal server error" });
       }
-    }
   },
 };
