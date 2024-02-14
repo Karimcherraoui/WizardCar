@@ -11,9 +11,10 @@ const registrationSchema = z.object({
   year: z.string(),
   color: z.string(),
   price: z.string(),
+  fuel: z.string(),
+  type: z.string(),
+  transmission: z.string(),
   plateNumber: z.string(),
-  feedback: z.string(),
-  disponibility: z.string(),
   idAgency: z.string(),
 });
 
@@ -47,40 +48,44 @@ export const carController = {
         year,
         color,
         price,
+        fuel,
+        type,
+        transmission,
         plateNumber,
-        feedback,
-        disponibility,
         idAgency
       } = data;
 
+      const agency = await Agency.findById(idAgency);
+      if (!agency) {
+        return res.status(404).json({ error: "Agency not found" });
+      }
 
-      const newCar: ICar  = new Car({
-        brand,
-        model,
-        year,
-        color,
-        price,
-        plateNumber,
-        feedback,
-        disponibility,
-        idAgency   
-         });
-      const savedCar = await newCar.save();
-      
-      const agencyId = data.idAgency;
-      const agency = await Agency.findById(agencyId);
+     const newCar: ICar = await Car.create({
+      brand,
+      model,
+      year,
+      color,
+      price,
+      fuel,
+      type,
+      transmission,
+      plateNumber,
+      idAgency
+    });
 
-      
-    if (agency) {
-      agency.cars.push(savedCar._id);
+  const agencyCar = await Agency.findByIdAndUpdate(idAgency, { $push: { cars: newCar._id } }, { new: true });
 
-      await agency.save();
+    if (!agencyCar) {
+      return res.status(404).json("Agency not found");
     }
       res.status(201).json({
         message: "Car created successfully",
-        car: savedCar,
+        car: newCar,
       });
     } catch (error) {
+      if ((error as { name: string; code: number }).name === 'MongoServerError' && (error as { name: string; code: number }).code === 11000) {
+        return res.status(400).json({ error: "A Car with the same information already exists." });
+      }
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: error.errors[0].message });
       }
@@ -92,13 +97,10 @@ export const carController = {
   returnCar: async (req:Request, res:Response)=>{
     const {id} = req.params
     try{
-      const car = await Car.findById(id);
+      const car = await Car.findByIdAndUpdate(id,{disponibility: "Disponible"},{new:true})
       if (!car) {
         return res.status(404).json({ error: "Car not found" });
-      }else{
-        car.disponibility = "Disponible"
-        await car.save()
-        }
+      }
       res.status(200).json({
         message: "Car Disponible",
       });
@@ -111,13 +113,12 @@ export const carController = {
   updateCar: async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-      const car = await Car.findById(id);
-      if (!car) {
-        return res.status(404).json({ error: "Car not found" });
-      }
       const updatedCar = await Car.findByIdAndUpdate(id, req.body, {
         new: true,
       });
+      if (!updatedCar) {
+        return res.status(404).json({ error: "Car not found" });
+      }
       res.status(200).json({
         message: "Car updated successfully",
         car: updatedCar,
@@ -130,11 +131,10 @@ export const carController = {
   deleteCar: async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-      const car = await Car.findById(id);
+      const car =  await Car.findByIdAndDelete(id);
       if (!car) {
         return res.status(404).json({ error: "Car not found" });
       }
-      await Car.findByIdAndDelete(id);
       res.status(200).json({
         message: "Car deleted successfully",
       });
