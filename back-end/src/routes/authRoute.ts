@@ -1,6 +1,6 @@
 import { Router } from "express";
 import  {AuthController}  from "../controllers/authController";
-import { authenticateToken } from "../middleware/jwt";
+
 
 const router = Router();
 router.post("/login", AuthController.login);
