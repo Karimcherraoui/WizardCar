@@ -20,7 +20,8 @@ export const ReservationEnum = {
 
     export const FuelEnum = {
         DIESEL: 'Diesel',
-        ESSENCE: 'Essence'
+        ESSENCE: 'Essence',
+        ELECTRIC: 'Electric',
     };
 
     export const TransmissionEnum = {
