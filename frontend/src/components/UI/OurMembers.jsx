@@ -1,11 +1,9 @@
 import React from "react";
-import { Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import ava01 from "../../assets/all-images/ava-1.jpg";
 import ava02 from "../../assets/all-images/ava-2.jpg";
 import ava03 from "../../assets/all-images/ava-3.jpg";
 import "../../styles/our-member.css";
-
 
 const OUR_MEMBERS = [
   {
@@ -50,10 +48,14 @@ const OurMembers = () => {
   return (
     <>
       {OUR_MEMBERS.map((item, index) => (
-        <Col lg="3" md="3" sm="4" xs="6" key={index} className="mb-4">
+        <div key={index} className="lg:w-1/4 md:w-1/3 sm:w-1/2 p-2 mb-5">
           <div className="single__member bg-white p-4 rounded-md">
             <div className="single__member-img relative">
-              <img src={item.imgUrl} alt={item.name} className="w-full rounded" />
+              <img
+                src={item.imgUrl}
+                alt={item.name}
+                className="w-full rounded"
+              />
 
               <div className="single__member-social absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-300">
                 <Link to={item.fbUrl} className="mr-2">
@@ -76,7 +78,7 @@ const OurMembers = () => {
               {item.experience}
             </p>
           </div>
-        </Col>
+        </div>
       ))}
     </>
   );
