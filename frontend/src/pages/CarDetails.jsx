@@ -15,10 +15,14 @@ const CarDetails = () => {
 
   return (
     <Helmet title={singleCarItem.carName}>
-      <section className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <section className="container mx-auto ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 mt-14">
           <div>
-            <img src={singleCarItem.imgUrl} alt="" className="w-full" />
+            <img
+              src={singleCarItem.imgUrl}
+              alt=""
+              className="w-full shadow-sm p-10 rounded-md"
+            />
           </div>
 
           <div className="car__info">
@@ -41,16 +45,14 @@ const CarDetails = () => {
               </span>
             </div>
 
-            <p className="section__description">
-              {singleCarItem.description}
-            </p>
+            <p className="section__description">{singleCarItem.description}</p>
 
-            <div className="flex items-center mt-3 space-x-12">
+            <div className="grid grid-cols-3 items-center mt-10  gap-4 ">
               <span className="flex items-center gap-1 section__description">
                 <i
                   className="ri-roadster-line"
                   style={{ color: "#f9a826" }}
-                ></i>{" "}
+                ></i>
                 {singleCarItem.model}
               </span>
 
@@ -69,14 +71,8 @@ const CarDetails = () => {
                 ></i>{" "}
                 {singleCarItem.speed}
               </span>
-            </div>
-
-            <div className="flex items-center mt-3 space-x-8">
               <span className="flex items-center gap-1 section__description">
-                <i
-                  className="ri-map-pin-line"
-                  style={{ color: "#f9a826" }}
-                ></i>{" "}
+                <i className="ri-map-pin-line" style={{ color: "#f9a826" }}></i>{" "}
                 {singleCarItem.gps}
               </span>
 
@@ -101,8 +97,10 @@ const CarDetails = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
           <div className="col-span-1 md:col-span-2">
-            <div className="booking-info mt-5">
-              <h5 className="mb-4 font-bold">Booking Information</h5>
+            <div className="booking-info mt-5 shadow-md rounded-md">
+              <h5 className="mb-12 font-bold text-center text-blue-400">
+                Booking Information
+              </h5>
               <BookingForm />
             </div>
           </div>
