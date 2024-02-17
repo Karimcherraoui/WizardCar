@@ -1,8 +1,6 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
-import aboutImg from "../../assets/all-images/cars-img/bmw-offer.png";
-import "../../styles/about-section.css";
-
+// import aboutImg from "../../assets/all-images/cars-img/bmw-offer.png";
+import drive from "../../assets/all-images/drive.jpg";
 
 const AboutSection = ({ aboutClass }) => {
   return (
@@ -11,12 +9,13 @@ const AboutSection = ({ aboutClass }) => {
         aboutClass === "aboutPage" ? "mt-0" : "mt-28"
       }`}
     >
-      <Container>
-        <Row>
-          <Col lg="6" md="6">
+      <div className="container my-auto shadow-lg p-20 rounded-lg ">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
             <div className="about__section-content">
-              <h4 className="section__subtitle">About Us</h4>
-              <h2 className="section__title">Welcome to car rent service</h2>
+              <h2 className="section__title text-2xl lg:text-3xl">
+                Welcome to car rent service
+              </h2>
               <p className="section__description">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                 Voluptatum blanditiis esse accusantium dignissimos labore
@@ -26,39 +25,39 @@ const AboutSection = ({ aboutClass }) => {
                 sunt.
               </p>
 
-              <div className="about__section-item flex items-center">
-                <p className="section__description flex items-center space-x-2">
-                  <i className="ri-checkbox-circle-line"></i> Lorem ipsum dolor
-                  sit amet.
+              <div className="about__section-item flex items-center space-x-2">
+                <p className="section__description">
+                  <i className="ri-checkbox-circle-line text-orange-500"></i>{" "}
+                  Lorem ipsum dolor sit amet.
                 </p>
 
-                <p className="section__description flex items-center space-x-2">
-                  <i className="ri-checkbox-circle-line"></i> Lorem ipsum dolor
-                  sit amet.
+                <p className="section__description">
+                  <i className="ri-checkbox-circle-line text-orange-500"></i>{" "}
+                  Lorem ipsum dolor sit amet.
                 </p>
               </div>
 
-              <div className="about__section-item flex items-center">
-                <p className="section__description flex items-center space-x-2">
-                  <i className="ri-checkbox-circle-line"></i> Lorem ipsum dolor
-                  sit amet.
+              <div className="about__section-item flex items-center space-x-2">
+                <p className="section__description">
+                  <i className="ri-checkbox-circle-line text-orange-500"></i>{" "}
+                  Lorem ipsum dolor sit amet.
                 </p>
 
-                <p className="section__description flex items-center space-x-2">
-                  <i className="ri-checkbox-circle-line"></i> Lorem ipsum dolor
-                  sit amet.
+                <p className="section__description">
+                  <i className="ri-checkbox-circle-line text-orange-500"></i>{" "}
+                  Lorem ipsum dolor sit amet.
                 </p>
               </div>
             </div>
-          </Col>
+          </div>
 
-          <Col lg="6" md="6">
+          <div className="lg:mt-0 mt-8 lg:col-span-1">
             <div className="about__img">
-              <img src={aboutImg} alt="" className="w-full" />
+              <img src={drive} alt="" className="w-full rounded h-[350px]" />
             </div>
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
