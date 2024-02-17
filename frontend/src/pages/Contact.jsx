@@ -29,11 +29,11 @@ const Contact = () => {
   return (
     <Helmet title="Contact">
       <CommonSection title="Contact" />
-      <section className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <section className="container  mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
           <div className="col-span-1">
             <h6 className="font-bold mb-4">Get In Touch</h6>
-            <Form>
+            <Form className="shadow-lg p-4 rounded-lg">
               <FormGroup className="mb-4">
                 <Input placeholder="Your Name" type="text" />
               </FormGroup>
@@ -57,9 +57,11 @@ const Contact = () => {
             </Form>
           </div>
 
-          <div className="col-span-1">
-            <div className="font-bold mb-4">Contact Information</div>
-            <p className="mb-2">14 Av. Zerktouni, Safi, Maroc</p>
+          <div className="col-span-1 shadow-lg flex flex-col items-center justify-center info__contact">
+            <div className="font-bold mb-4 text-center">
+              Contact Information
+            </div>
+            <p className="mb-2 text-center">14 Av. Zerktouni, Safi, Maroc</p>
             <div className="flex items-center gap-2 mb-2">
               <div className="text-sm">Phone:</div>
               <p className="mb-0">+212789065426</p>
