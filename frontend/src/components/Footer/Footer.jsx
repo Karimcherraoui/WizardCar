@@ -35,19 +35,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="col-span-1">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold">
+              <h1 className="text-3xl font-bold text-white no-underline">
                 <Link to="/home" className="flex items-center gap-2">
-                  <i className="ri-car-line"></i>
-                  <span>Rent Car Service</span>
+                  <i className="ri-car-line "></i>
+                  <span>WizardCar</span>
                 </Link>
               </h1>
             </div>
-            <p className="footer__logo-content text-sm">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Consequuntur, distinctio, itaque reiciendis ab cupiditate harum ex
-              quam veniam, omnis expedita animi quibusdam obcaecati mollitia?
-              Delectus et ad illo recusandae temporibus?
-            </p>
           </div>
 
           <div className="col-span-1">
