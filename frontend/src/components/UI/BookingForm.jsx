@@ -1,58 +1,146 @@
 import React from "react";
-import "../../styles/booking-form.css";
-
 
 const BookingForm = () => {
-  const submitHandler = (event) => {
-    event.preventDefault();
-  };
 
   return (
-    <form onSubmit={submitHandler} className="flex flex-wrap gap-4">
-      <div className="flex items-center mb-4">
-        <input type="text" placeholder="First Name" className="booking__form" />
-        <input type="text" placeholder="Last Name" className="booking__form ms-1" />
-      </div>
+    <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+      <form>
+        <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase underline">
+          User Information
+        </h6>
+        <div className="flex flex-wrap">
+          <div className="w-full lg:w-6/12 px-4">
+            <div className="relative w-full mb-3">
+              <label
+                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                First Name
+              </label>
+              <input
+                type="text"
+                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                value="Lucky"
+              />
+            </div>
+          </div>
+          <div className="w-full lg:w-6/12 px-4">
+            <div className="relative w-full mb-3">
+              <label
+                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Last Name
+              </label>
+              <input
+                type="text"
+                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                value="Jesse"
+              />
+            </div>
+          </div>
 
-      <div className="flex items-center mb-4">
-        <input type="email" placeholder="Email" className="booking__form" />
-        <input type="number" placeholder="Phone Number" className="booking__form ms-1" />
-      </div>
+          <div className="w-full lg:w-6/12 px-4">
+            <div className="relative w-full mb-3">
+              <label
+                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Email address
+              </label>
+              <input
+                type="email"
+                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                value="jesse@example.com"
+              />
+            </div>
+          </div>
+          <div className="w-full lg:w-6/12 px-4">
+            <div className="relative w-full mb-3">
+              <label
+                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Phone
+              </label>
+              <input
+                type="text"
+                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                value="lucky.jesse"
+              />
+            </div>
+          </div>
+        </div>
 
-      <div className="flex items-center mb-4">
-        <input type="text" placeholder="From Address" className="booking__form" />
-        <input type="text" placeholder="To Address" className="booking__form ms-1" />
-      </div>
+        <hr className="mt-6 border-b-1 border-blueGray-300" />
 
-      <div className="flex items-center mb-4">
-        <select className="booking__form" name="persons">
-          <option value="1 person">1 Person</option>
-          <option value="2 persons">2 Persons</option>
-          <option value="3 persons">3 Persons</option>
-          <option value="4 persons">4 Persons</option>
-          <option value="5+ persons">5+ Persons</option>
-        </select>
-
-        <select className="booking__form ms-1" name="luggage">
-          <option value="1 luggage">1 Luggage</option>
-          <option value="2 luggage">2 Luggage</option>
-          <option value="3 luggage">3 Luggage</option>
-          <option value="4 luggage">4 Luggage</option>
-          <option value="5+ luggage">5+ Luggage</option>
-        </select>
-      </div>
-
-      <div className="flex items-center mb-4">
-        <input type="date" placeholder="Journey Date" className="booking__form" />
-        <input type="time" placeholder="Journey Time" className="booking__form ms-1 time__picker" />
-      </div>
-
-      <div className="w-full mb-4">
-        <textarea rows={5} className="textarea booking__form" placeholder="Write"></textarea>
-      </div>
-
-      <button type="submit" className="btn bg-blue-500 text-white px-6 py-2">Submit</button>
-    </form>
+        <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase underline">
+          Contact Information
+        </h6>
+        <div className="flex flex-wrap">
+          <div className="w-full lg:w-12/12 px-4">
+            <div className="relative w-full mb-3">
+              <label
+                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Address
+              </label>
+              <input
+                type="text"
+                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+              />
+            </div>
+          </div>
+          <div className="w-full lg:w-4/12 px-4">
+            <div className="relative w-full mb-3">
+              <label
+                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                City
+              </label>
+              <input
+                type="email"
+                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                value="New York"
+              />
+            </div>
+          </div>
+          <div className="w-full lg:w-4/12 px-4">
+            <div className="relative w-full mb-3">
+              <label
+                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Country
+              </label>
+              <input
+                type="text"
+                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                value="United States"
+              />
+            </div>
+          </div>
+          <div className="w-full lg:w-4/12 px-4">
+            <div className="relative w-full mb-3">
+              <label
+                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Postal Code
+              </label>
+              <input
+                type="text"
+                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                value="Postal Code"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };
 
