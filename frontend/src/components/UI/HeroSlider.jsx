@@ -4,7 +4,6 @@ import { Container } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../../styles/hero-slider.css";
 
-
 const HeroSlider = () => {
   const settings = {
     fade: true,
@@ -21,17 +20,22 @@ const HeroSlider = () => {
     {
       className: "slider__item-01",
       heading: "Reserve Now and Get 50% Off",
-      subheading: "For Rent $70 Per Day",
+      subheading: "For Rent $20 Per Day",
     },
     {
       className: "slider__item-02",
       heading: "Reserve Now and Get 50% Off",
-      subheading: "For Rent $70 Per Day",
+      subheading: "For Rent $3,000 Per Day",
     },
     {
       className: "slider__item-03",
       heading: "Reserve Now and Get 50% Off",
-      subheading: "For Rent $70 Per Day",
+      subheading: "For Rent $10,000 Per Day",
+    },
+    {
+      className: "slider__item-04",
+      heading: "Reserve Now and Get 20% Off",
+      subheading: "For Rent $5,000 Per Day",
     },
   ];
 
