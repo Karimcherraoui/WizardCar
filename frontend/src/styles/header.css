@@ -1,6 +1,10 @@
 .header__top {
   padding: 10px 0px;
-  background: #000d6b;
+  background: linear-gradient(
+    112.1deg,
+    rgb(32, 38, 57) 11.4%,
+    rgb(63, 76, 119) 70.2%
+  );
   color: #fff;
 }
 
@@ -42,6 +46,15 @@
 
 .header__middle {
   padding: 20px 0px;
+  background: radial-gradient(
+    circle at -8.9% 51.2%,
+    rgb(255, 124, 0) 0%,
+    rgb(255, 124, 0) 15.9%,
+    rgb(255, 163, 77) 15.9%,
+    rgb(255, 163, 77) 24.4%,
+    rgb(19, 30, 37) 24.5%,
+    rgb(19, 30, 37) 66%
+  );
 }
 
 .logo h1 a span {
@@ -64,21 +77,22 @@
 
 .header__location span i {
   font-size: 2.2rem;
-  color: #000d6b;
+  color: white;
 }
 
 .header__location-content h4 {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #000d6b;
+  color: white;
 }
 
 .header__location-content h6 {
   font-weight: 600;
+  color: white;
 }
 
 .header__btn {
-  background: #000d6b !important;
+  background: red !important;
   padding: 10px 20px;
   border: none;
   outline: none;
@@ -91,7 +105,7 @@
   column-gap: 0.4rem;
   text-decoration: none;
   color: #fff;
-  justify-content: end;
+  justify-content: flex-end;
   font-size: 0.9rem;
 }
 
@@ -103,7 +117,11 @@
 
 .main__navbar {
   padding: 15px 0px;
-  background: #000d6b;
+  background: linear-gradient(
+    112.1deg,
+    rgb(32, 38, 57) 11.4%,
+    rgb(63, 76, 119) 70.2%
+  );
 }
 
 .mobile__menu i {
@@ -138,7 +156,7 @@
   display: flex;
   align-items: center;
   border-radius: 50px;
-  background: #020a4de9;
+  background: white;
 }
 
 .search__box input {

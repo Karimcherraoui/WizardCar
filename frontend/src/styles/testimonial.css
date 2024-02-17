@@ -1,16 +1,17 @@
+
 @media only screen and (max-width: 768px) {
-  .testimonial p {
+  .testimonial-item p {
     font-size: 0.8rem;
     line-height: 1.5rem;
   }
 
-  .testimonial h6 {
+  .testimonial-item h6 {
     font-size: 1rem;
   }
 }
 
 @media only screen and (max-width: 576px) {
-  .testimonial img {
+  .testimonial-item img {
     width: 60px !important;
     height: 60px !important;
     object-fit: cover;
