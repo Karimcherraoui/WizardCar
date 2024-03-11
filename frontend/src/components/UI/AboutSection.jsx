@@ -6,10 +6,10 @@ const AboutSection = ({ aboutClass }) => {
   return (
     <section
       className={`about__section ${
-        aboutClass === "aboutPage" ? "mt-0" : "mt-28"
+        aboutClass === "aboutPage" ? "mt-0" : "mt-10"
       }`}
     >
-      <div className="container my-auto shadow-lg p-20 rounded-lg ">
+      <div className="container my-auto shadow-lg py-14 rounded-lg  bg-gray-200">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
             <div className="about__section-content">
