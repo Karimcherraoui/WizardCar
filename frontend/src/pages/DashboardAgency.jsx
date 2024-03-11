@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/dashboard.css";
 import ReservedCar from "../components/UI/ReservedCar";
 import FormCar from "../components/UI/FormCar";
+import flech from "../assets/all-images/flechWhite.png";
 
 export default function DashboardAgency() {
   const [isAddCar, setIsAddCar] = useState(false);
@@ -21,7 +22,7 @@ export default function DashboardAgency() {
       <div className="flex-grow overflow-hidden h-full flex flex-col">
         <div className="flex-grow flex overflow-x-hidden">
           <div className="xl:w-72 w-48 flex-shrink-0 border-r border-gray-300 dark:border-gray-800 h-full overflow-y-auto lg:block hidden p-5">
-            <div className="text-xs text-gray-400 tracking-wider">USERS</div>
+            <div className="text-xs text-gray-400 tracking-wider">Cars</div>
             <div className="relative mt-2">
               <input
                 type="text"
@@ -68,14 +69,18 @@ export default function DashboardAgency() {
                   "linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%)",
               }}
             >
-              <div className="flex w-full items-center">
-                <div className="ml-auto sm:flex hidden items-center justify-end">
-                  <div className="text-right">
-                    <div className="text-xs text-gray-400 dark:text-gray-400">
-                      Account balance:
-                    </div>
-                    <div className="text-white dark:text-white">$2,794.00</div>
+              <div className="flex justify-between ">
+                <div className="flex ml-10 ">
+                  <img src={flech} alt="flech" className="w-6 h-6 mr-1" />
+                  <a href="/" className="font-bold text-white no-underline">
+                    Back
+                  </a>
+                </div>
+                <div className="text-right">
+                  <div className="text-xs text-gray-400 dark:text-gray-400">
+                    Account balance:
                   </div>
+                  <div className="text-white dark:text-white">$2,794.00</div>
                 </div>
               </div>
               <div className="flex items-center space-x-3 sm:mt-7 mt-4">
@@ -94,50 +99,9 @@ export default function DashboardAgency() {
               </div>
             </div>
             <div className="sm:p-7 p-4 bg-gray-200 h-screen">
-             
+              {isAddCar ? <FormCar /> : <ReservedCar />}
 
-              {isAddCar ? <FormCar />  : <ReservedCar />}
-
-              <div className="flex w-full mt-5 space-x-2 justify-end">
-                <button className="inline-flex items-center h-8 w-8 justify-center text-gray-400 rounded-md shadow border border-gray-300 dark:border-gray-800 leading-none">
-                  <svg
-                    className="w-4"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                  </svg>
-                </button>
-                <button className="inline-flex items-center h-8 w-8 justify-center text-gray-500 rounded-md shadow border border-gray-300 dark:border-gray-800 leading-none">
-                  1
-                </button>
-                <button className="inline-flex items-center h-8 w-8 justify-center text-gray-500 rounded-md shadow border border-gray-300 dark:border-gray-800 bg-gray-100 dark:bg-gray-800 dark:text-white leading-none">
-                  2
-                </button>
-                <button className="inline-flex items-center h-8 w-8 justify-center text-gray-500 rounded-md shadow border border-gray-300 dark:border-gray-800 leading-none">
-                  3
-                </button>
-                <button className="inline-flex items-center h-8 w-8 justify-center text-gray-500 rounded-md shadow border border-gray-300 dark:border-gray-800 leading-none">
-                  4
-                </button>
-                <button className="inline-flex items-center h-8 w-8 justify-center text-gray-400 rounded-md shadow border border-gray-300 dark:border-gray-800 leading-none">
-                  <svg
-                    className="w-4"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                  </svg>
-                </button>
-              </div>
+              
             </div>
           </div>
         </div>
