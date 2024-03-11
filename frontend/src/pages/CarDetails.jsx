@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Helmet from "../components/Helmet/Helmet";
 import BookingForm from "../components/UI/BookingForm";
 import PaymentMethod from "../components/UI/PaymentMethod";
+import { ReviewCard } from "../components/Card/ReviewCard";
 
 const CarDetails = () => {
   const { slug } = useParams();
@@ -95,7 +96,9 @@ const CarDetails = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+        <ReviewCard />
+
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
           <div className="col-span-1 md:col-span-2">
             <div className="booking-info mt-5 shadow-md rounded-md">
               <h5 className="mb-12 font-bold text-center text-blue-400">
@@ -111,7 +114,7 @@ const CarDetails = () => {
               <PaymentMethod />
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
     </Helmet>
   );
