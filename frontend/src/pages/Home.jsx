@@ -13,10 +13,10 @@ const Home = () => {
   return (
     <Helmet title="Home">
       {/* ============= hero section =========== */}
-      <section className="p-0 hero__slider-section">
+      <section className="p-0 hero__slider-section ">
         <HeroSlider />
 
-        <div className="hero__form">
+        {/* <div className="hero__form">
           <div className="container mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2">
               <div className="find__cars-left col-span-1 text-white">
@@ -28,7 +28,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
       {/* =========== about section ================ */}
       <AboutSection />
@@ -61,7 +61,6 @@ const Home = () => {
       </section>
       {/* =========== become a driver section ============ */}
       <BecomeDriverSection />
-
     </Helmet>
   );
 };
