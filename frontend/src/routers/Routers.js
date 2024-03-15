@@ -13,6 +13,8 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import Register from "../pages/Register";
 import DashboardAgency from "../pages/DashboardAgency";
+import Client from "../pages/Client";
+import Agence from "../pages/Agence";
 const Routers = () => {
   return (
     <Routes>
@@ -77,6 +79,26 @@ const Routers = () => {
           <>
             <Header />
             <Contact />
+            <Footer />
+          </>
+        }
+      />
+         <Route
+        path="/client"
+        element={
+          <>
+            <Header />
+            <Client />
+            <Footer />
+          </>
+        }
+      />
+       <Route
+        path="/agence"
+        element={
+          <>
+            <Header />
+            <Agence />
             <Footer />
           </>
         }
