@@ -1,14 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import carData from "../assets/data/carData";
 import { useParams } from "react-router-dom";
 import Helmet from "../components/Helmet/Helmet";
-import BookingForm from "../components/UI/BookingForm";
-import PaymentMethod from "../components/UI/PaymentMethod";
+// import BookingForm from "../components/UI/BookingForm";
+// import PaymentMethod from "../components/UI/PaymentMethod";
 import { ReviewCard } from "../components/Card/ReviewCard";
+import { Button, Center } from "@chakra-ui/react";
+// import Informations from "../components/UI/Informations";
+import Booking from "../components/UI/Booking";
 
 const CarDetails = () => {
   const { slug } = useParams();
   const singleCarItem = carData.find((item) => item.carName === slug);
+
+  const [reserveBtn, setReserveBtn] = useState(false);
+
+  const handleReserveBtn = () => {
+    setReserveBtn(!reserveBtn);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -17,7 +26,7 @@ const CarDetails = () => {
   return (
     <Helmet title={singleCarItem.carName}>
       <section className="container mx-auto ">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 mt-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 mt-14 ">
           <div>
             <img
               src={singleCarItem.imgUrl}
@@ -95,26 +104,46 @@ const CarDetails = () => {
             </div>
           </div>
         </div>
+        <Center>
+          <Button
+            marginTop={6}
+            bgColor={"black"}
+            _hover={{
+              bgColor: "white",
+              color: "black",
+              border: "2px solid black",
+            }}
+            textColor={"white"}
+            paddingY={8}
+            fontSize={30}
+            width={"50%"}
+            onClick={handleReserveBtn}
+          >
+            Reserve Now
+          </Button>
+        </Center>
 
-        <ReviewCard />
-
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
-          <div className="col-span-1 md:col-span-2">
-            <div className="booking-info mt-5 shadow-md rounded-md">
-              <h5 className="mb-12 font-bold text-center text-blue-400">
-                Booking Information
-              </h5>
-              <BookingForm />
+        {reserveBtn && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5  shadow-xl">
+            <div className="col-span-1 md:col-span-2">
+              <div className="booking-info mt-5 shadow-md rounded-md">
+                <h5 className="mb-12 font-bold text-center text-blue-400">
+                  Booking Information
+                </h5>
+                <Booking />
+              </div>
             </div>
-          </div>
 
-          <div className="col-span-1 md:col-span-2">
+            {/* <div className="col-span-1 md:col-span-2">
             <div className="payment__info mt-5">
               <h5 className="mb-4 font-bold">Payment Information</h5>
               <PaymentMethod />
             </div>
+          </div> */}
           </div>
-        </div> */}
+        )}
+
+        <ReviewCard />
       </section>
     </Helmet>
   );
