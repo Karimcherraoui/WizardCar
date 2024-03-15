@@ -5,15 +5,15 @@ import RegisterClient from "../components/UI/RegisterClient";
 import RegisterAgency from "../components/UI/RegisterAgency";
 
 export default function Register() {
-const [isClient, setIsClient] = useState(true);
+  const [isClient, setIsClient] = useState(true);
 
-    const triggerRegister = () => {
-        setIsClient(!isClient);
-    }
+  const triggerRegister = () => {
+    setIsClient(!isClient);
+  };
   return (
     <div className="h-screen">
       <div
-        className="min-h-screen flex flex-col justify-center items-center"
+        className="min-h-screen flex flex-col justify-center items-center pt-10 pb-20"
         style={{
           backgroundImage: `url(${car})`,
           backgroundRepeat: "no-repeat",
@@ -26,7 +26,10 @@ const [isClient, setIsClient] = useState(true);
             Back
           </a>
         </div>
-        <button className="text-black mb-10 bg-white py-2 px-8 rounded" onClick={triggerRegister}>
+        <button
+          className="text-black mb-10 bg-white py-2 px-8 rounded"
+          onClick={triggerRegister}
+        >
           {isClient ? "Register as Agency" : "Register as Client"}
         </button>
         {isClient ? <RegisterClient /> : <RegisterAgency />}
