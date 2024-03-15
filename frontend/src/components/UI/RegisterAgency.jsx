@@ -75,7 +75,24 @@ export default function RegisterAgency() {
                   htmlFor="password"
                   className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                 >
-                  Password
+                  Mot de passe
+                </label>
+              </div>
+
+              <div className="relative">
+                <input
+                  autocomplete="off"
+                  id="password_confirmation"
+                  name="password_confirmation"
+                  type="password"
+                  className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                  placeholder="Confirmation"
+                />
+                <label
+                  htmlFor="password"
+                  className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                >
+                  Confirmation Mot de passe
                 </label>
               </div>
 
@@ -99,12 +116,10 @@ export default function RegisterAgency() {
               <div className="relative"></div>
             </div>
 
-            
-              <div className="relative text-center  ">
-                <button className="bg-green-500 text-white rounded-md px-4 py-2 mt-10">
+            <div className="relative text-center  ">
+              <button className="bg-green-500 text-white rounded-md px-4 py-2 ">
                 Create Account
-                </button>
-
+              </button>
             </div>
           </div>
         </div>
