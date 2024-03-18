@@ -9,21 +9,21 @@ export const AgenceForm = () => {
     setLocalSettings({ ...localSettings, [name]: value });
   };
 
+  // company_name         String
+  // owner_name           String
+  // owner_lastname       String
+  // vat_number           String
+  // street               String
+  // zip_code             String
+  // city                 String
+  // country              String
+  // owner_email          String
+  // owner_phone          String
+  // owner_website        String
+  // bank_name            String
+  // bank_account_number  String
+  
   return (
-    // company_name         String
-    // owner_name           String
-    // owner_lastname       String
-    // vat_number           String
-    // street               String
-    // zip_code             String
-    // city                 String
-    // country              String
-    // owner_email          String
-    // owner_phone          String
-    // owner_website        String
-    // bank_name            String
-    // bank_account_number  String
-
     <form
       //   onSubmit={handleSubmit}
       className="my-10 w-[60%] mx-auto"
