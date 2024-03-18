@@ -32,13 +32,16 @@ const Footer = () => {
   return (
     <footer className="footer bg-gray-900 text-white">
       <div className="container mx-auto py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+          <div></div>
           <div className="col-span-1">
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-white no-underline">
                 <Link to="/home" className="flex items-center gap-2">
-                  <i className="ri-car-line "></i>
-                  <span>WizardCar</span>
+                  <i className="ri-car-line text-red-600"></i>
+                  <span className="text-white">
+                    <span className="text-yellow-400">Wizard</span>Car
+                  </span>
                 </Link>
               </h1>
             </div>
