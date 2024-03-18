@@ -24,12 +24,28 @@ const registrationSchema = z.object({
 });
 
 const registrationAgencySchema = z.object({
-  phone: z.string().regex(/^[0-9]{10}$/g),
-  email: z.string(),
-  password: z.string(),
-  role: z.string(),
   agencyName: z.string(),
   address: z.string(),
+  ownerName: z.string(),
+  ownerLastName: z.string(),
+  phone: z.string().regex(/^[0-9]{10}$/g),
+  email: z.string(),
+  role: z.enum(["agency"]),
+  password: z.string(),
+  confirmPassword: z.string(),
+  expirationDate: z.string(),
+  numberTva: z.string(),
+  zipCode: z.string(),
+  city: z.string(),
+  region: z.string(),
+  country: z.string(),
+  website: z.string(),
+  bankName: z.string(),
+  rib: z.string(),
+  iban: z.string(),
+  logo: z.string(),
+
+
 });
 
 export const AuthController = {
@@ -113,15 +129,30 @@ export const AuthController = {
     try {
 
       const data = registrationAgencySchema.parse(req.body);
+        
+      const {
+        phone,
+        email,
+        password,
+        confirmPassword,
+        role,
+        ...agencyInfo
+        } = data;
 
-      const { phone, email, password, role, agencyName, address } = data;
+          let user = await User.findOne({ email });
+    if (user) {
+     return res.status(400).json({ error: "User already exists" });
+    }
 
       const newAgency: IAgency = await agencys.create({
-        agencyName,
-        address,
+        ...agencyInfo,
       });
 
       const hashedPassword = await argon2.hash(password);
+
+      if(password !== confirmPassword) {
+        return res.status(400).json({ error: "Passwords do not match" });
+      }
 
       const newUser: IUser = await User.create({
         phone,
