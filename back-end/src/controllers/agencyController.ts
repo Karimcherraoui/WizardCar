@@ -1,11 +1,6 @@
 import { Request, Response, json } from "express";
 import Agency from "../models/Agency";
 
-
-
-
-
-
 export const agencyController = {
   getAllAgencys: async (req: Request, res: Response) => {
     try {
