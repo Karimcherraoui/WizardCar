@@ -26,7 +26,6 @@ const navLinks = [
 ];
 
 const Header = () => {
-
   const menuRef = useRef(null);
 
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
@@ -34,7 +33,7 @@ const Header = () => {
   return (
     <header className="header">
       {/* ============ header top ============ */}
-      <div className="header__top py-2 px-4">
+      {/* <div className="header__top py-2 px-4">
         <div className="flex justify-between items-center">
           <div className="header__top__left">
             <span>Need Help ?</span>
@@ -53,10 +52,10 @@ const Header = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* =============== header middle =========== */}
-      <div className="header__middle bg-gray-100 py-4 px-4">
+      {/* <div className="header__middle bg-gray-100 py-4 px-4">
         <div className="flex justify-between items-center">
           <div className="logo">
             <h1>
@@ -95,7 +94,7 @@ const Header = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* ========== main navigation =========== */}
 
@@ -104,6 +103,17 @@ const Header = () => {
           <span className="mobile__menu text-white">
             <i className="ri-menu-line" onClick={toggleMenu}></i>
           </span>
+
+          <div className="logo">
+            <h1>
+              <Link to="/home" className="flex items-center gap-2">
+                <i className="ri-car-line text-red-600"></i>
+                <span className="text-white">
+                  <span className="text-yellow-400">Wizard</span>Car
+                </span>
+              </Link>
+            </h1>
+          </div>
 
           <div className="navigation" ref={menuRef} onClick={toggleMenu}>
             <div className="menu flex gap-4">
@@ -134,6 +144,16 @@ const Header = () => {
                 <i className="ri-search-line"></i>
               </span>
             </div>
+          </div>
+
+          <div className="header__top__right flex gap-3">
+            <Link to="/login" className="flex items-center gap-1">
+              <i className="ri-login-circle-line"></i> Login
+            </Link>
+
+            <Link to="/register" className="flex items-center gap-1">
+              <i className="ri-user-line"></i> Register
+            </Link>
           </div>
         </div>
       </div>
