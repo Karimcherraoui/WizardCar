@@ -12,7 +12,7 @@ export const signin = createAsyncThunk(
   async ({ form, navigate }, thunkAPI) => {
     try {
       const response = await axios.post(
-        `http://localhost:3000/auth/login`,
+        `http://localhost:3005/auth/login`,
         form
       );
       if (response.status >= 200 && response.status <= 299) {
@@ -23,6 +23,7 @@ export const signin = createAsyncThunk(
         throw new Error("Failed to fetch user");
       }
     } catch (error) {
+      console.log(error.message);
       return thunkAPI.rejectWithValue({ error: error.message });
     }
   }
@@ -35,6 +36,22 @@ export const signupAgency = createAsyncThunk(
       console.log(form);
       const response = await axios.post(
         `http://localhost:3005/auth/register/agency`,
+        form
+      );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+
+export const signupClient = createAsyncThunk(
+  "auth/signupClient",
+  async ({ form }, thunkAPI) => {
+    try {
+      console.log(form);
+      const response = await axios.post(
+        `http://localhost:3005/auth/register/client`,
         form
       );
       return response.data;
