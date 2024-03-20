@@ -4,8 +4,13 @@ export interface IClient extends Document {
   firstName: string;
   lastName: string;
   cin: string;
-  numeroPermis: string;
+  licenseNumber: string;
+  genre: string;
+  expiration: string;
   country: string;
+  region: string;
+  city: string;
+  address: string;
   reservations: mongoose.Types.ObjectId[];
   cars: mongoose.Types.ObjectId[];
   idUser: mongoose.Types.ObjectId;
@@ -15,8 +20,13 @@ const clientSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   cin: { type: String, required: true, unique: true },
-  numeroPermis: { type: String, required: true, unique: true },
+  licenseNumber: { type: String, required: true, unique: true },
+  genre: { type: String, required: true },
+  expiration: { type: String, required: true },
   country: { type: String, required: true },
+  region: { type: String, required: true },
+  city: { type: String, required: true },
+  address: { type: String, required: true },
   reservations: {
     type: [mongoose.Types.ObjectId],
     required: true,
