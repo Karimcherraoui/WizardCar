@@ -1,8 +1,26 @@
 import React from "react";
 import car from "../assets/all-images/rolce.jpg";
 import flech from "../assets/all-images/flech.png";
+import { useDispatch } from "react-redux";
+import { signin } from "../features/authSlice";
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const [formData, setFormData] = React.useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = { ...formData };
+    dispatch(signin({ form }));
+  };
+
   return (
     <div className="h-screen md:flex w-full">
       <div
@@ -27,9 +45,13 @@ export default function Login() {
                 <h1 className="text-2xl font-semibold text-center">LOGIN</h1>
               </div>
               <div className="divide-y divide-gray-200">
-                <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                <form
+                  onSubmit={handleSubmit}
+                  className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                >
                   <div className="relative">
                     <input
+                      onChange={handleChange}
                       autocomplete="off"
                       id="email"
                       name="email"
@@ -46,6 +68,7 @@ export default function Login() {
                   </div>
                   <div className="relative">
                     <input
+                      onChange={handleChange}
                       autocomplete="off"
                       id="password"
                       name="password"
@@ -61,11 +84,14 @@ export default function Login() {
                     </label>
                   </div>
                   <div className="relative text-center mt-10 ">
-                    <button className="bg-blue-500 text-white rounded-md px-2 py-1">
+                    <button
+                      type="submit"
+                      className="bg-blue-500 text-white rounded-md px-2 py-1"
+                    >
                       Connect
                     </button>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
