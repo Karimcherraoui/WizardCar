@@ -1,19 +1,30 @@
 import React from "react";
 
 export default function FormCar() {
+
+
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  console.log("form submitted");
+}
+
   return (
     <>
       <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 ">
         <h1 className="text-xl font-bold text-white capitalize dark:text-white">
           Add new car
         </h1>
-        <form>
+        <form 
+          onSubmit={handleSubmit}
+        >
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
               <label className="text-white dark:text-gray-200" htmlFor="brand">
                 Brand Name
               </label>
               <input
+                name="brand"
                 id="brand"
                 type="text"
                 className="block w-full px-4 py-2 text-black bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -25,6 +36,7 @@ export default function FormCar() {
                 Model
               </label>
               <input
+                name="model"
                 id="model"
                 type="text"
                 className="block w-full px-4 py-2    text-black bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -36,6 +48,7 @@ export default function FormCar() {
                 Year
               </label>
               <input
+              name="year"
                 id="year"
                 type="text"
                 className="block w-full px-4 py-2    text-black bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -47,6 +60,7 @@ export default function FormCar() {
                 Price
               </label>
               <input
+                name="price"
                 id="price"
                 type="price"
                 className="block w-full px-4 py-2    text-black bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -57,6 +71,7 @@ export default function FormCar() {
                 Color
               </label>
               <input
+                name="color"
                 id="color"
                 type="text"
                 className="block w-full px-4 py-2    text-black bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -66,7 +81,7 @@ export default function FormCar() {
               <label className="text-white dark:text-gray-200" htmlFor="fuel">
                 Fuel
               </label>
-              <select className="block w-full px-4 py-2    text-black bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+              <select name="fuel" className="block w-full px-4 py-2    text-black bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                 <option>Essence</option>
                 <option>Diesel</option>
                 <option>Electric</option>
@@ -76,7 +91,7 @@ export default function FormCar() {
               <label className="text-white dark:text-gray-200" htmlFor="type">
                 Type
               </label>
-              <select className="block w-full px-4 py-2    text-black bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+              <select name="type" className="block w-full px-4 py-2    text-black bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                 <option>Citadine</option>
                 <option>Berline</option>
                 <option>SUV</option>
@@ -90,7 +105,7 @@ export default function FormCar() {
               >
                 Transmission
               </label>
-              <select className="block w-full px-4 py-2    text-black bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+              <select name="transmission" className="block w-full px-4 py-2    text-black bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                 <option>Manuelle</option>
                 <option>Automatique</option>
               </select>
@@ -103,6 +118,7 @@ export default function FormCar() {
                 Plate Number
               </label>
               <input
+              name="plateNumber"
                 id="plateNumber"
                 type="text"
                 className="block w-full px-4 py-2    text-black bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
