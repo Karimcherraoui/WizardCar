@@ -11,7 +11,7 @@ export const fetchCars = createAsyncThunk(
   "cars/fetchCars",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get(`http://localhost:3000/cars/`, {
+      const response = await axios.get(`http://localhost:3005/car/`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -21,6 +21,27 @@ export const fetchCars = createAsyncThunk(
         return response.data;
       } else {
         throw new Error("Failed to fetch cars");
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+
+export const addCar = createAsyncThunk(
+  "cars/addCar",
+  async ({ form }, thunkAPI) => {
+    try {
+      console.log(form);
+      const response = await axios.post(`http://localhost:3005/car/`, form, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.status >= 200 && response.status <= 299) {
+        return response.data;
+      } else {
+        throw new Error("Failed to add car");
       }
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error.message });
