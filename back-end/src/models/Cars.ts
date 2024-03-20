@@ -1,5 +1,5 @@
 import mongoose, { Document } from "mongoose";
-import { disponibilityEnum } from "./enum";
+import { CarTypeEnum, FuelEnum, TransmissionEnum, disponibilityEnum } from "./enum";
 
 
 
@@ -14,6 +14,7 @@ export interface ICar extends Document {
   type: string;
   plateNumber: string;
   disponibility: string;
+  description: string;
   createdAt: Date;
   idAgency: mongoose.Types.ObjectId; 
   idClient: mongoose.Types.ObjectId;
@@ -26,10 +27,25 @@ const carsSchema = new mongoose.Schema({
   year: { type: Number, required: true },
   color: { type: String, required: true  },
   price: { type: Number, required: true },
-  fuel: { type: String, required: true },
-  transmission: { type: String, required: true },
-  type: { type: String, required: true },
+  fuel: {
+     type: String,
+     enum:Object.values(FuelEnum),
+      required: true 
+    },
+  transmission: { 
+    type: String,
+    enum:Object.values(TransmissionEnum),
+     required: true
+     },
+  type: { 
+    type: String,
+    enum:Object.values(CarTypeEnum),
+     required: true
+   },
   plateNumber: { type: String, required: true , unique: true },
+  chassisNumber: { type: String, required: true , unique: true },
+  description: { type: String, required: true },
+  image: { type: String, required: true },
   disponibility: {
     type: String,
     enum: Object.values(disponibilityEnum),
