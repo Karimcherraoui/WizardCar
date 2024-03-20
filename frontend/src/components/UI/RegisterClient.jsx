@@ -1,6 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { signupClient } from "../../features/authSlice";
 
 export default function RegisterClient() {
+  const [localSettings, setLocalSettings] = useState({
+    role: "client",
+  });
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLocalSettings({ ...localSettings, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = { ...localSettings }; 
+  dispatch(signupClient({ form }));
+  };
+
   return (
     <div className="relative sm:max-w-xl sm:mx-auto w-full ">
       <div className="absolute inset-0 bg-gradient-to-r w-full from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
@@ -10,10 +28,13 @@ export default function RegisterClient() {
             <h1 className="text-2xl font-semibold text-center">REGISTER</h1>
           </div>
           <div className="divide-y divide-gray-200">
-            <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+            <form
+            onSubmit={handleSubmit}
+             className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
               <div className="flex gap-20">
                 <div className="relative">
                   <input
+                    onChange={handleChange}
                     autocomplete="off"
                     id="firstName"
                     name="firstName"
@@ -31,6 +52,7 @@ export default function RegisterClient() {
 
                 <div className="relative">
                   <input
+                    onChange={handleChange}
                     autocomplete="off"
                     id="lastName"
                     name="lastName"
@@ -50,15 +72,16 @@ export default function RegisterClient() {
               <div className="flex gap-20">
                 <div className="relative ">
                   <input
+                    onChange={handleChange}
                     autocomplete="off"
-                    id="ID"
-                    name="ID"
+                    id="cin"
+                    name="cin"
                     type="text"
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                     placeholder="N° Passport / CIN"
                   />
                   <label
-                    htmlFor="email"
+                    htmlFor="cin"
                     className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
                     N° Passport / CIN
@@ -67,15 +90,16 @@ export default function RegisterClient() {
 
                 <div className="relative">
                   <input
+                    onChange={handleChange}
                     autocomplete="off"
                     id=" num_permis"
-                    name="num_permis"
+                    name="licenseNumber"
                     type="text"
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                     placeholder="N° Permis"
                   />
                   <label
-                    htmlFor="zip"
+                    htmlFor="licenseNumber"
                     className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
                     N° Permis
@@ -86,6 +110,7 @@ export default function RegisterClient() {
               <div className="flex gap-20">
                 <div className="relative w-full">
                   <select
+                    onChange={handleChange}
                     autocomplete="off"
                     id="genre"
                     name="genre"
@@ -100,6 +125,7 @@ export default function RegisterClient() {
 
                 <div className="relative w-full">
                   <input
+                    onChange={handleChange}
                     autocomplete="off"
                     id="email"
                     name="email"
@@ -119,6 +145,7 @@ export default function RegisterClient() {
               <div className="flex gap-20">
                 <div className="relative">
                   <input
+                    onChange={handleChange}
                     autocomplete="off"
                     id="password"
                     name="password"
@@ -135,15 +162,16 @@ export default function RegisterClient() {
                 </div>
                 <div className="relative">
                   <input
+                    onChange={handleChange}
                     autocomplete="off"
-                    id="password"
-                    name="password"
+                    id="passwordConfirmation"
+                    name="confirmPassword"
                     type="password"
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                    placeholder="password"
+                    placeholder="Password Confirmation"
                   />
                   <label
-                    htmlFor="password"
+                    htmlFor="confirmPassword"
                     className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
                     Confirmation
@@ -154,6 +182,7 @@ export default function RegisterClient() {
               <div className="flex gap-20">
                 <div className="relative">
                   <input
+                    onChange={handleChange}
                     autocomplete="off"
                     id="expiration"
                     name="expiration"
@@ -162,7 +191,7 @@ export default function RegisterClient() {
                     placeholder="Expiration Permis"
                   />
                   <label
-                    htmlFor="phone"
+                    htmlFor="expiration"
                     className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
                     Expiration Permis
@@ -171,6 +200,7 @@ export default function RegisterClient() {
 
                 <div className="relative">
                   <input
+                    onChange={handleChange}
                     autocomplete="off"
                     id="phone"
                     name="phone"
@@ -189,15 +219,16 @@ export default function RegisterClient() {
               <div className="flex gap-20">
                 <div className="relative">
                   <input
+                    onChange={handleChange}
                     autocomplete="off"
                     id="nationalite"
-                    name="nationalite"
+                    name="country"
                     type="text"
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                     placeholder="Nationalite"
                   />
                   <label
-                    htmlFor="nationalite"
+                    htmlFor="country"
                     className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
                     Nationalite
@@ -206,6 +237,7 @@ export default function RegisterClient() {
 
                 <div className="relative">
                   <input
+                    onChange={handleChange}
                     autocomplete="off"
                     id="region"
                     name="region"
@@ -225,15 +257,16 @@ export default function RegisterClient() {
               <div className="flex gap-20">
                 <div className="relative">
                   <input
+                    onChange={handleChange}
                     autocomplete="off"
                     id="ville"
-                    name="ville"
+                    name="city"
                     type="text"
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                     placeholder="Ville"
                   />
                   <label
-                    htmlFor="vile"
+                    htmlFor="city"
                     className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
                     Ville
@@ -242,15 +275,16 @@ export default function RegisterClient() {
 
                 <div className="relative">
                   <input
+                    onChange={handleChange}
                     autocomplete="off"
                     id="adresse"
-                    name="adresse"
+                    name="address"
                     type="text"
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                     placeholder="Adresse"
                   />
                   <label
-                    htmlFor="adresse"
+                    htmlFor="address"
                     className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
                     Adresse
@@ -259,11 +293,11 @@ export default function RegisterClient() {
               </div>
 
               <div className="relative text-center  ">
-                <button className="bg-green-500 text-white rounded-md px-4 py-2 mt-4">
+                <button type="submit" className="bg-green-500 text-white rounded-md px-4 py-2 mt-4">
                   Create Account
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
