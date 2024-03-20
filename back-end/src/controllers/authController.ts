@@ -12,15 +12,21 @@ const loginSchema = z.object({
 });
 
 const registrationSchema = z.object({
-  phone: z.string().regex(/^[0-9]{10}$/g),
   email: z.string(),
   password: z.string(),
+  confirmPassword: z.string(),
+  phone: z.string().regex(/^[0-9]{10}$/g),
   role: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   cin: z.string(),
-  numeroPermis: z.string(),
+  licenseNumber: z.string(),
+  genre: z.string(),
+  expiration: z.string(),
   country: z.string(),
+  region: z.string(),
+  city: z.string(),
+  address: z.string(),
 });
 
 const registrationAgencySchema = z.object({
@@ -44,8 +50,6 @@ const registrationAgencySchema = z.object({
   rib: z.string(),
   iban: z.string(),
   logo: z.string(),
-
-
 });
 
 export const AuthController = {
@@ -64,6 +68,7 @@ export const AuthController = {
       }
 
       const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET!);
+      console.log(token);
 
       return res.json({ token });
     } catch (error) {
@@ -76,26 +81,23 @@ export const AuthController = {
     try {
       const data = registrationSchema.parse(req.body);
 
-      const {
-        firstName,
-        lastName,
-        cin,
-        numeroPermis,
-        country,
-        phone,
-        email,
-        password,
-        role,
-      } = data;
+      const { phone, email, password, confirmPassword, role, ...clientInfo } =
+        data;
+
+      const user = await User.findOne({ email });
+      if (user) {
+        return res.status(400).json({ error: "User already exists" });
+      }
+      console.log(clientInfo);
 
       const newClient: IClient = await clients.create({
-        firstName,
-        lastName,
-        cin,
-        numeroPermis,
-        country,
+        ...clientInfo,
       });
-     
+      console.log(newClient);
+
+      if (password !== confirmPassword) {
+        return res.status(400).json({ error: "Passwords do not match" });
+      }
       const hashedPassword = await argon2.hash(password);
 
       const newUser: IUser = await User.create({
@@ -105,17 +107,26 @@ export const AuthController = {
         role,
         referredUser: newClient._id,
       });
+
       newClient.idUser = newUser._id;
       await newClient.save();
-
       res.status(201).json({
         message: "Client created successfully",
         client: newClient,
         user: newUser,
       });
     } catch (error) {
-      if ((error as { name: string; code: number }).name === 'MongoServerError' && (error as { name: string; code: number }).code === 11000) {
-        return res.status(400).json({ error: "A client with the same information already exists." });
+      if (
+        (error as { name: string; code: number }).name === "MongoServerError" &&
+        (error as { name: string; code: number }).code === 11000
+      ) {
+        console.log(error);
+
+        return res
+          .status(400)
+          .json({
+            error: "A client with the same information already exists.",
+          });
       }
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: error.errors[0].message });
@@ -127,22 +138,15 @@ export const AuthController = {
 
   registerAgency: async (req: Request, res: Response) => {
     try {
-
       const data = registrationAgencySchema.parse(req.body);
-        
-      const {
-        phone,
-        email,
-        password,
-        confirmPassword,
-        role,
-        ...agencyInfo
-        } = data;
 
-          let user = await User.findOne({ email });
-    if (user) {
-     return res.status(400).json({ error: "User already exists" });
-    }
+      const { phone, email, password, confirmPassword, role, ...agencyInfo } =
+        data;
+
+      let user = await User.findOne({ email });
+      if (user) {
+        return res.status(400).json({ error: "User already exists" });
+      }
 
       const newAgency: IAgency = await agencys.create({
         ...agencyInfo,
@@ -150,7 +154,7 @@ export const AuthController = {
 
       const hashedPassword = await argon2.hash(password);
 
-      if(password !== confirmPassword) {
+      if (password !== confirmPassword) {
         return res.status(400).json({ error: "Passwords do not match" });
       }
 
@@ -170,17 +174,24 @@ export const AuthController = {
         agency: newAgency,
         user: newUser,
       });
-      } catch (error) {
-        if ((error as { name: string; code: number }).name === 'MongoServerError' && (error as { name: string; code: number }).code === 11000) {
-          return res.status(400).json({ error: "Agency with the same name already exists" });
-        }
+    } catch (error) {
+      console.error(error);
 
-        if (error instanceof z.ZodError) {
-          return res.status(400).json({ error: error.errors[0].message });
-        }
-
-        console.error(error);
-        return res.status(500).json({ error: "Internal server error" });
+      if (
+        (error as { name: string; code: number }).name === "MongoServerError" &&
+        (error as { name: string; code: number }).code === 11000
+      ) {
+        return res
+          .status(400)
+          .json({ error: "Agency with the same name already exists" });
       }
+
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: error.errors[0].message });
+      }
+
+      console.error(error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
   },
 };
