@@ -5,7 +5,6 @@ export interface IAgency extends Document {
   address: string;
   ownerName: string;
   ownerLastName: string;
-
   expirationDate: string;
   numberTva: string;
   zipCode: string;
@@ -22,21 +21,21 @@ export interface IAgency extends Document {
 }
 
 const agencySchema = new mongoose.Schema<IAgency>({
-  agencyName: { type: String, required: true },
+  agencyName: { type: String, required: true , unique:true },
   address: { type: String, required: true },
   ownerName: { type: String, required: true },
   ownerLastName: { type: String, required: true },
   expirationDate: { type: String, required: true },
-  numberTva: { type: String, required: true },
+  numberTva: { type: String, required: true, unique:true },
   zipCode: { type: String, required: true },
   city: { type: String, required: true },
   region: { type: String, required: true },
   country: { type: String, required: true },
-  website: { type: String, required: true },
+  website: { type: String, required: true, unique:true },
   bankName: { type: String, required: true },
-  rib: { type: String, required: true },
-  iban: { type: String, required: true },
-  logo: { type: String, required: true },
+  rib: { type: String, required: true, unique:true },
+  iban: { type: String, required: true, unique:true },
+  logo: { type: String, required: true, unique:true },
   idUser: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
   cars: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cars' }],
 }, { timestamps: true });
