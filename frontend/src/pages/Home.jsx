@@ -7,7 +7,7 @@ import BecomeDriverSection from "../components/UI/BecomeDriverSection";
 import ServicesList from "../components/UI/ServicesList";
 import AboutSection from "../components/UI/AboutSection";
 import HeroSlider from "../components/UI/HeroSlider";
-import FindCarForm from "../components/UI/FindCarForm";
+
 
 const Home = () => {
   return (
@@ -15,20 +15,6 @@ const Home = () => {
       {/* ============= hero section =========== */}
       <section className="p-0 hero__slider-section ">
         <HeroSlider />
-
-        {/* <div className="hero__form">
-          <div className="container mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2">
-              <div className="find__cars-left col-span-1 text-white">
-                <h2>Find your best car here</h2>
-              </div>
-
-              <div className="col-span-1">
-                <FindCarForm />
-              </div>
-            </div>
-          </div>
-        </div> */}
       </section>
       {/* =========== about section ================ */}
       <AboutSection />
