@@ -9,35 +9,30 @@ import BlogDetails from "../pages/BlogDetails";
 import NotFound from "../pages/NotFound";
 import Contact from "../pages/Contact";
 import Login from "../pages/Login";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
+
 import Register from "../pages/Register";
-import DashboardAgency from "../pages/DashboardAgency";
-import Client from "../pages/Client";
-import Agence from "../pages/Agence";
+import DashboardAgency from "../pages/AgenceDashboard";
+import Client from "../pages/ClientDashboard";
+import Agence from "../pages/AgenceDashboard";
+import PrivateRouteAgence from "./PrivateRouteAgence";
+import PrivateRouteClient from "./PrivateRouteClient";
 const Routers = () => {
   return (
-    <Routes>
+    <>
       <Route
         path="/home"
         element={
           <>
-            <Header />
             <Home />
-            <Footer />
           </>
         }
       />
-
       <Route path="/" element={<Navigate to="/home" />} />
-
       <Route
         path="/about"
         element={
           <>
-            <Header />
             <About />
-            <Footer />
           </>
         }
       />
@@ -45,20 +40,15 @@ const Routers = () => {
         path="/cars"
         element={
           <>
-            <Header />
             <CarListing />
-            <Footer />
           </>
         }
       />
-
       <Route
         path="/cars/:slug"
         element={
           <>
-            <Header />
             <CarDetails />
-            <Footer />
           </>
         }
       />
@@ -66,9 +56,7 @@ const Routers = () => {
         path="/blogs"
         element={
           <>
-            <Header />
             <Blog />
-            <Footer />
           </>
         }
       />
@@ -77,37 +65,31 @@ const Routers = () => {
         path="/contact"
         element={
           <>
-            <Header />
             <Contact />
-            <Footer />
           </>
         }
       />
-         <Route
+      <Route
         path="/client"
         element={
           <>
-            <Header />
-            <Client />
-            <Footer />
+            <PrivateRouteClient>
+              <Client />
+            </PrivateRouteClient>
           </>
         }
       />
-       <Route
+      <Route
         path="/agence"
         element={
-          <>
-            <Header />
+          <PrivateRouteAgence>
             <Agence />
-            <Footer />
-          </>
+          </PrivateRouteAgence>
         }
       />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<DashboardAgency />} />
       <Route path="*" element={<NotFound />} />
-    </Routes>
+    </>
   );
 };
 
