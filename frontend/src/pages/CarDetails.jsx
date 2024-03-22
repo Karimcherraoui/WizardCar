@@ -2,21 +2,23 @@ import React, { useEffect, useState } from "react";
 import carData from "../assets/data/carData";
 import { useParams } from "react-router-dom";
 import Helmet from "../components/Helmet/Helmet";
-// import BookingForm from "../components/UI/BookingForm";
-// import PaymentMethod from "../components/UI/PaymentMethod";
-import { ReviewCard } from "../components/Card/ReviewCard";
-import { Button, Center } from "@chakra-ui/react";
-// import Informations from "../components/UI/Informations";
+import { Button, Center, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 import Booking from "../components/UI/Booking";
 
 const CarDetails = () => {
   const { slug } = useParams();
   const singleCarItem = carData.find((item) => item.carName === slug);
 
+  const loggedIn = localStorage.getItem("User");
+  const [showModal, setShowModal] = useState(false);
   const [reserveBtn, setReserveBtn] = useState(false);
 
   const handleReserveBtn = () => {
-    setReserveBtn(!reserveBtn);
+    if (!loggedIn) {
+      setShowModal(true);
+    } else {
+      setReserveBtn(!reserveBtn);
+    }
   };
 
   useEffect(() => {
@@ -25,8 +27,8 @@ const CarDetails = () => {
 
   return (
     <Helmet title={singleCarItem.carName}>
-      <section className="container mx-auto ">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 mt-14 ">
+      <section className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 mt-14">
           <div>
             <img
               src={singleCarItem.imgUrl}
@@ -57,7 +59,7 @@ const CarDetails = () => {
 
             <p className="section__description">{singleCarItem.description}</p>
 
-            <div className="grid grid-cols-3 items-center mt-10  gap-4 ">
+            <div className="grid grid-cols-3 items-center mt-10 gap-4">
               <span className="flex items-center gap-1 section__description">
                 <i
                   className="ri-roadster-line"
@@ -106,7 +108,8 @@ const CarDetails = () => {
         </div>
         <Center>
           <Button
-            marginTop={6}
+            marginTop={8}
+            marginBottom={20}
             bgColor={"black"}
             _hover={{
               bgColor: "white",
@@ -124,7 +127,7 @@ const CarDetails = () => {
         </Center>
 
         {reserveBtn && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5  shadow-xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 shadow-xl mb-40">
             <div className="col-span-1 md:col-span-2">
               <div className="booking-info mt-5 shadow-md rounded-md">
                 <h5 className="mb-12 font-bold text-center text-blue-400">
@@ -133,17 +136,24 @@ const CarDetails = () => {
                 <Booking />
               </div>
             </div>
-
-            {/* <div className="col-span-1 md:col-span-2">
-            <div className="payment__info mt-5">
-              <h5 className="mb-4 font-bold">Payment Information</h5>
-              <PaymentMethod />
-            </div>
-          </div> */}
           </div>
         )}
 
-        <ReviewCard />
+        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Login Required</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+            Vous devez être connecté pour réserver une voiture. Voulez-vous vous connecter maintenant ?            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={() => {window.location.href = "/login";}}>
+                Log In
+              </Button>
+              <Button onClick={() => setShowModal(false)}>Cancel</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </section>
     </Helmet>
   );
