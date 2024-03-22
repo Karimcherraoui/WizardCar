@@ -16,8 +16,9 @@ export const signin = createAsyncThunk(
         form
       );
       if (response.status >= 200 && response.status <= 299) {
-        localStorage.setItem("token", response.data.token);
-        navigate("/dashboard");
+ 
+        localStorage.setItem("User", JSON.stringify(response.data));
+        navigate("/");
         return response.data;
       } else {
         throw new Error("Failed to fetch user");
