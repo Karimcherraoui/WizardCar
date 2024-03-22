@@ -3,9 +3,11 @@ import car from "../assets/all-images/rolce.jpg";
 import flech from "../assets/all-images/flech.png";
 import { useDispatch } from "react-redux";
 import { signin } from "../features/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const dispatch = useDispatch();
+  const navigation = useNavigate();
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
@@ -18,7 +20,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = { ...formData };
-    dispatch(signin({ form }));
+    dispatch(signin({ form, navigate: navigation}));
   };
 
   return (
