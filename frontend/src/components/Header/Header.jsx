@@ -1,6 +1,16 @@
-import React, { useRef } from "react";
-import { Link, NavLink } from "react-router-dom";
-import "../../styles/header.css";
+import React from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import {
+  Avatar,
+  Button,
+  Center,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
 const navLinks = [
   {
@@ -26,84 +36,20 @@ const navLinks = [
 ];
 
 const Header = () => {
-  const menuRef = useRef(null);
-
-  const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
+  const profile = useSelector((state) => state.agency.profile);
+  const user = localStorage.getItem("User");
+  const role = user ? JSON.parse(user).role : null;
+const navigate = useNavigate();
+if (!profile) {
+  return <div>Loading...</div>;
+}
 
   return (
     <header className="header">
-      {/* ============ header top ============ */}
-      {/* <div className="header__top py-2 px-4">
-        <div className="flex justify-between items-center">
-          <div className="header__top__left">
-            <span>Need Help ?</span>
-            <span className="header__top__help">
-              <i className="ri-phone-fill"></i> +212 123 456 789
-            </span>
-          </div>
-
-          <div className="header__top__right flex gap-3">
-            <Link to="/login"  className="flex items-center gap-1">
-              <i className="ri-login-circle-line"></i> Login
-            </Link>
-
-            <Link to="/register" className="flex items-center gap-1">
-              <i className="ri-user-line"></i> Register
-            </Link>
-          </div>
-        </div>
-      </div> */}
-
-      {/* =============== header middle =========== */}
-      {/* <div className="header__middle bg-gray-100 py-4 px-4">
-        <div className="flex justify-between items-center">
-          <div className="logo">
-            <h1>
-              <Link to="/home" className="flex items-center gap-2">
-                <i className="ri-car-line"></i>
-                <span>WizardCar</span>
-              </Link>
-            </h1>
-          </div>
-
-          <div className="header__location flex items-center gap-2">
-            <span>
-              <i className="ri-earth-line"></i>
-            </span>
-            <div className="header__location-content">
-              <h4>Morroco</h4>
-              <h6>Youcode, Safi</h6>
-            </div>
-          </div>
-
-          <div className="header__location flex items-center gap-2">
-            <span>
-              <i className="ri-time-line"></i>
-            </span>
-            <div className="header__location-content">
-              <h4>Sunday to Friday</h4>
-              <h6>10am - 7pm</h6>
-            </div>
-          </div>
-
-          <div className="flex items-center">
-            <button className="header__btn btn">
-              <Link to="/contact">
-                <i className="ri-phone-line"></i> Request a call
-              </Link>
-            </button>
-          </div>
-        </div>
-      </div> */}
-
       {/* ========== main navigation =========== */}
 
       <div className="main__navbar bg-gray-800 py-4 px-4">
         <div className="flex justify-between items-center">
-          <span className="mobile__menu text-white">
-            <i className="ri-menu-line" onClick={toggleMenu}></i>
-          </span>
-
           <div className="logo">
             <h1>
               <Link to="/home" className="flex items-center gap-2">
@@ -115,7 +61,7 @@ const Header = () => {
             </h1>
           </div>
 
-          <div className="navigation" ref={menuRef} onClick={toggleMenu}>
+          <div className="navigation">
             <div className="menu flex gap-4">
               {navLinks.map((item, index) => (
                 <NavLink
@@ -146,15 +92,78 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="header__top__right flex gap-3">
-            <Link to="/login" className="flex items-center gap-1">
-              <i className="ri-login-circle-line"></i> Login
-            </Link>
+          {user ? (
+            <div className="flex items-center ">
+              <span className="text-white font-bold mx-3">{profile.agency.agencyName}</span>
 
-            <Link to="/register" className="flex items-center gap-1">
-              <i className="ri-user-line"></i> Register
-            </Link>
-          </div>
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={"full"}
+                  variant={"link"}
+                  cursor={"pointer"}
+                  minW={0}
+                >
+                  <Avatar
+                    size={"sm"}
+                    src={
+                      "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                    }
+                  />
+                </MenuButton>
+                <MenuList alignItems={"center"}>
+                  <br />
+                  <Center>
+                    <Avatar
+                      size={"2xl"}
+                      src={
+                        "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                      }
+                    />
+                  </Center>
+                  <br />
+                  <Center>
+                    <p>Username</p>
+                  </Center>
+                  <Center>
+                    <p className="text-gray-400">Test@test.com</p>
+                  </Center>
+
+                  <MenuDivider />
+                  {role === "client" ? (
+                    <>
+                      <MenuItem  onClick={() => navigate("/client")}>Profile</MenuItem>
+                      <MenuItem>Mes Factures</MenuItem>
+                    </>
+                  ) : (
+                    <>
+                      <MenuItem className="">Ajouter Voiture</MenuItem>
+                      <MenuItem onClick={() => navigate("/agence")}>
+                        Profile
+                      </MenuItem>
+                      <MenuItem>Mes Voitures</MenuItem>
+                      <MenuItem>Mes Commandes</MenuItem>
+                    </>
+                  )}
+                  <MenuItem
+                    onClick={() => {
+                      localStorage.removeItem("User");
+                      window.location.reload();
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+              {/* </Flex> */}
+            </div>
+          ) : (
+            <div className="header__top__right flex gap-3">
+              <Link to="/login" className="flex items-center gap-1 text-white">
+                <i className="ri-login-circle-line text-white "></i> Login
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </header>
