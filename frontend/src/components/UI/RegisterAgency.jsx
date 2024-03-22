@@ -15,8 +15,8 @@ export default function RegisterAgency() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = { ...localSettings }; 
-  dispatch(signupAgency({ form }));
+    const form = { ...localSettings };
+    dispatch(signupAgency({ form }));
   };
   return (
     <div className="relative sm:max-w-xl sm:mx-auto w-full ">
@@ -187,45 +187,6 @@ export default function RegisterAgency() {
                   <input
                     onChange={handleChange}
                     autocomplete="off"
-                    id="expiration"
-                    name="expirationDate"
-                    type="text"
-                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                    placeholder="Expiration Permis"
-                  />
-                  <label
-                    htmlFor="expirationDate"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                  >
-                    Expiration Permis
-                  </label>
-                </div>
-
-                <div className="relative">
-                  <div className="relative">
-                    <input
-                      onChange={handleChange}
-                      autocomplete="off"
-                      id="nationalite"
-                      name="country"
-                      type="text"
-                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                      placeholder="Nationalite"
-                    />
-                    <label
-                      htmlFor="nationalite"
-                      className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                    >
-                      Nationalite
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className="flex gap-20">
-                <div className="relative">
-                  <input
-                    onChange={handleChange}
-                    autocomplete="off"
                     id="ville"
                     name="city"
                     type="text"
@@ -237,6 +198,43 @@ export default function RegisterAgency() {
                     className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
                     Ville
+                  </label>
+                </div>
+                <div className="relative">
+                  <input
+                    onChange={handleChange}
+                    autocomplete="off"
+                    id="nationalite"
+                    name="country"
+                    type="text"
+                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                    placeholder="Nationalite"
+                  />
+                  <label
+                    htmlFor="nationalite"
+                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >
+                    Nationalite
+                  </label>
+                </div>
+              </div>
+              <div className="flex gap-20">
+            
+                <div className="relative">
+                  <input
+                    onChange={handleChange}
+                    autocomplete="off"
+                    id="zip"
+                    name="zipCode"
+                    type="text"
+                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                    placeholder="Zip Code"
+                  />
+                  <label
+                    htmlFor="zipCode"
+                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >
+                    Zip Code
                   </label>
                 </div>
 
@@ -260,21 +258,22 @@ export default function RegisterAgency() {
               </div>
 
               <div className="flex gap-20">
+            
                 <div className="relative">
                   <input
                     onChange={handleChange}
                     autocomplete="off"
-                    id="zip"
-                    name="zipCode"
+                    id="tva"
+                    name="numberTva"
                     type="text"
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                    placeholder="Zip Code"
+                    placeholder="Numero de TVA"
                   />
                   <label
-                    htmlFor="zipCode"
+                    htmlFor="numberTva"
                     className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
-                    Zip Code
+                    Numero de TVA
                   </label>
                 </div>
                 <div className="relative">
@@ -297,21 +296,22 @@ export default function RegisterAgency() {
               </div>
 
               <div className="flex gap-20">
+             
                 <div className="relative">
                   <input
                     onChange={handleChange}
                     autocomplete="off"
-                    id="tva"
-                    name="numberTva"
+                    id="rib"
+                    name="rib"
                     type="text"
                     className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                    placeholder="Numero de TVA"
+                    placeholder="RIB"
                   />
                   <label
-                    htmlFor="numberTva"
+                    htmlFor="rib"
                     className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
-                    Numero de TVA
+                    RIB
                   </label>
                 </div>
 
@@ -335,7 +335,7 @@ export default function RegisterAgency() {
               </div>
 
               <div className="flex gap-20">
-                <div className="relative">
+                <div className="relative w-full">
                   <input
                     onChange={handleChange}
                     autocomplete="off"
@@ -350,24 +350,6 @@ export default function RegisterAgency() {
                     className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
                     Iban
-                  </label>
-                </div>
-
-                <div className="relative">
-                  <input
-                    onChange={handleChange}
-                    autocomplete="off"
-                    id="rib"
-                    name="rib"
-                    type="text"
-                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                    placeholder="RIB"
-                  />
-                  <label
-                    htmlFor="rib"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                  >
-                    RIB
                   </label>
                 </div>
               </div>
