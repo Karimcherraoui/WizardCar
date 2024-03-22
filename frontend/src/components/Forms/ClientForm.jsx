@@ -16,9 +16,15 @@ export const ClientForm = () => {
         setLocalSettings({ ...localSettings, [name]: value });
       };
 
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        const form = { ...localSettings };
+        console.log(form)
+      }
+
     return(
         <form
-        //   onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
         className="my-10 w-[60%] mx-auto"
       >
         <Flex
