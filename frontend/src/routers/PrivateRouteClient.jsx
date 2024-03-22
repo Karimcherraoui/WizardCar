@@ -1,0 +1,12 @@
+import React from 'react'
+import { Navigate } from 'react-router-dom'
+const PrivateRouteClient= ({children}) => {
+  const user = localStorage.getItem("User");
+    if (!user) {
+        return <Navigate to="/login" />;
+    }
+  return children
+
+}
+
+export default PrivateRouteClient
