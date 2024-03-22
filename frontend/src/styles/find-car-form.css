@@ -53,7 +53,7 @@
 
 .hero__slider-section {
   position: relative;
-  z-index: 10;
+  /* z-index: 10; */
 }
 
 .hero__form {
