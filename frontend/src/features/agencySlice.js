@@ -2,18 +2,37 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  settings: null,
+  agences: null,
+  profile: null,
   status: "idle",
   error: null,
 };
 
-export const fetchSettings = createAsyncThunk(
-  "settings/fetchSettings",
+export const fetchAgences = createAsyncThunk(
+  "settings/fetchAgence",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get(`http://localhost:3000/settings`, {
+      const response = await axios.get(`http://localhost:3005/agency`);
+      if (response.status >= 200 && response.status <= 299) {
+        return response.data;
+      } else {
+        throw new Error("Failed to fetch setting");
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+
+export const profileAgence = createAsyncThunk(
+  "settings/profileAgence",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get(`http://localhost:3005/agency/profile`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("User")).tokenKey
+          }`,
         },
       });
       if (response.status >= 200 && response.status <= 299) {
@@ -57,20 +76,32 @@ export const agencySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchSettings.pending, (state) => {
+      .addCase(fetchAgences.pending, (state) => {
         state.status = "loading";
         state.error = null;
       })
-      .addCase(fetchSettings.fulfilled, (state, action) => {
+      .addCase(fetchAgences.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.settings = action.payload.settings;
       })
-      .addCase(fetchSettings.rejected, (state, action) => {
+      .addCase(fetchAgences.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+
+      .addCase(profileAgence.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(profileAgence.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.profile = action.payload;
+      })
+      .addCase(profileAgence.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })
   },
 });
-
 
 export default agencySlice.reducer;
