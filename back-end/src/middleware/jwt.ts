@@ -6,6 +6,7 @@ dotenv.config();
 interface UserRequest extends Request {
   user: {
     userId: string;
+    referredUser: string;
   };
 }
 
@@ -21,10 +22,13 @@ export const authenticateToken = (
   try {
     if (token) {
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET!);
+      // console.log(decoded);
+
       if (decoded && typeof decoded === "object") {
-        const { id} = decoded;
+        const { id , referredUser} = decoded;
         (req as UserRequest).user = {
-          userId: id
+          userId: id,
+          referredUser
         };
       }
     }
