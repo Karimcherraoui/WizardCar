@@ -39,7 +39,6 @@ const registrationAgencySchema = z.object({
   role: z.enum(["agency"]),
   password: z.string(),
   confirmPassword: z.string(),
-  expirationDate: z.string(),
   numberTva: z.string(),
   zipCode: z.string(),
   city: z.string(),
@@ -67,10 +66,12 @@ export const AuthController = {
         return res.status(400).json({ error: "Invalid password" });
       }
 
-      const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET!);
-      console.log(token);
+      const tokenKey = jwt.sign(
+        { id: user._id, role: user.role, referredUser: user.referredUser },
+        process.env.TOKEN_SECRET!
+      );
 
-      return res.json({ token });
+      return res.json({ tokenKey, role: user.role });
     } catch (error) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: error.errors[0].message });
@@ -122,11 +123,9 @@ export const AuthController = {
       ) {
         console.log(error);
 
-        return res
-          .status(400)
-          .json({
-            error: "A client with the same information already exists.",
-          });
+        return res.status(400).json({
+          error: "A client with the same information already exists.",
+        });
       }
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: error.errors[0].message });
