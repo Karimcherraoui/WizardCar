@@ -21,6 +21,17 @@ export const agencyController = {
     }
   },
 
+  getProfile: async (req: Request, res: Response) => {
+    try {
+      const agency = await Agency.findById((req as any).user.referredUser);
+      console.log(agency);
+      res.status(200).json({ agency });
+    } catch (error) {
+      console.error(error);
+      res.status(404).json({ error: "Agency not found" });
+    }
+  },
+
   
  
   updateAgency: async (req: Request, res: Response) => {
