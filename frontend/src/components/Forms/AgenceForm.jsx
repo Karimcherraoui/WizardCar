@@ -23,12 +23,18 @@ export const AgenceForm = () => {
     }
   }, [profile]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = { ...localSettings };
+    console.log(form);
+  };
+
   if (!profile) {
     return <div>Loading...</div>;
   }
   return (
     <form
-      //   onSubmit={handleSubmit}
+        onSubmit={handleSubmit}
       className="my-10 w-[60%] mx-auto"
     >
       <Flex
@@ -43,7 +49,7 @@ export const AgenceForm = () => {
               Nom d'agence
             </label>
             <input
-              name="agence_name"
+              name="agencyName"
               className="shadow-md appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="agence_name"
@@ -58,7 +64,7 @@ export const AgenceForm = () => {
             <input
               className="shadow-md  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              name="owner_name"
+              name="ownerName"
               placeholder="Owner Name"
               value={localSettings.ownerName}
               onChange={handleChange}
@@ -72,7 +78,7 @@ export const AgenceForm = () => {
               Proprietaire Nom
             </label>
             <input
-              name="owner_lastname"
+              name="ownerLastName"
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Owner Lastname"
@@ -85,7 +91,7 @@ export const AgenceForm = () => {
               Proprietaire Telephone
             </label>
             <input
-              name="owner_phone"
+              name="ownerLastName"
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Owner Phone"
@@ -101,7 +107,7 @@ export const AgenceForm = () => {
               Adresse
             </label>
             <input
-              name="street"
+              name="address"
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Street"
@@ -144,7 +150,7 @@ export const AgenceForm = () => {
               Zip Code
             </label>
             <input
-              name="zip_code"
+              name="zipCode"
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Zip Code"
@@ -173,7 +179,7 @@ export const AgenceForm = () => {
               Numéro de TVA
             </label>
             <input
-              name="vat_number"
+              name="numberTva"
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="VAT Number"
@@ -189,7 +195,7 @@ export const AgenceForm = () => {
               Agence Website
             </label>
             <input
-              name="owner_website"
+              name="website"
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Owner Website"
@@ -202,7 +208,7 @@ export const AgenceForm = () => {
               Banque
             </label>
             <input
-              name="bank_name"
+              name="bankName"
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Bank Name"
@@ -218,7 +224,7 @@ export const AgenceForm = () => {
               Numero de compte
             </label>
             <input
-              name="bank_account_number"
+              name="rib"
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Bank Account Number"
