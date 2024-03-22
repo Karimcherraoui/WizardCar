@@ -5,6 +5,8 @@ import { checkRole } from "../middleware/checkRole";
 import router from "routes";
 
 const routerAgency = Router();
+routerAgency.get("/profile", authenticateToken,agencyController.getProfile);
+
 routerAgency.get("/", agencyController.getAllAgencys);
 routerAgency.get("/:id", agencyController.getAgency);
 routerAgency.use(authenticateToken);
