@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   clients: [],
+  profile: null,
   status: "idle",
   error: null,
 };
@@ -17,6 +18,54 @@ export const fetchClients = createAsyncThunk(
         },
       });
       if (response.status >= 200 && response.status <= 299) {
+        return response.data;
+      } else {
+        throw new Error("Failed to fetch client");
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+
+export const updateClient = createAsyncThunk(
+  "client/updateClient",
+  async (form, thunkAPI) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:3005/client/`,
+        form,
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("User")).tokenKey
+            }`,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status <= 299) {
+        return response.data;
+      } else {
+        throw new Error("Failed to update client");
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+export const profileClient = createAsyncThunk(
+  "client/profileClient",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get(`http://localhost:3005/client/profile`, {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("User")).tokenKey
+          }`,
+        },
+      });
+      if (response.status >= 200 && response.status <= 299) {
+        console.log(response.data);
         return response.data;
       } else {
         throw new Error("Failed to fetch client");
@@ -42,6 +91,18 @@ export const clientSlice = createSlice({
         state.clients = action.payload.clients;
       })
       .addCase(fetchClients.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(profileClient.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(profileClient.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.profile = action.payload;
+      })
+      .addCase(profileClient.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
