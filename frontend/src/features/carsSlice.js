@@ -35,7 +35,9 @@ export const addCar = createAsyncThunk(
       console.log(form);
       const response = await axios.post(`http://localhost:3005/car/`, form, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("User")).tokenKey
+          }`,
         },
       });
       if (response.status >= 200 && response.status <= 299) {
