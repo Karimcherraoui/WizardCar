@@ -9,10 +9,12 @@ import { checkRole } from "../middleware/checkRole";
 
 
 const routerClient = Router();
+
 routerClient.use(authenticateToken);
+routerClient.get("/profile",clientController.getProfile);
 routerClient.get("/", clientController.getAllClients);
 routerClient.get("/:id", clientController.getClient);
-routerClient.patch("/:id",checkRole.client ,clientController.updateClient);
+routerClient.patch("/",checkRole.client ,clientController.updateClient);
 routerClient.delete("/:id",checkRole.client  ,clientController.deleteClient);
 
 
