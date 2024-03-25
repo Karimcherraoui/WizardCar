@@ -3,28 +3,10 @@ import { useState } from "react";
 import { TableFacture } from "../components/Tables/TableFacture";
 import { AgenceForm } from "../components/Forms/AgenceForm";
 import CarForm from "../components/Forms/CarForm";
+import { TableCars } from "../components/Tables/TableCars";
 
-// import { useDispatch, useSelector } from "react-redux";
-// import { fetchSettings, updateSettings } from "../../features/settingSlice";
-// import { useTranslation } from "react-i18next";
 
 const AgenceDashboard = () => {
-  //   const dispatch = useDispatch();
-  //   const settings = useSelector((state) => state.Settings.settings);
-  //   const { t } = useTranslation();
-
-  //   useEffect(() => {
-  //     dispatch(fetchSettings());
-  //   }, []);
-
-  //   useEffect(() => {
-  //     setLocalSettings(settings);
-  //   }, [settings]);
-
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     dispatch(updateSettings(localSettings));
-  //   };
 
   const [switchForm, setSwitchForm] = useState("informations");
 
@@ -96,7 +78,7 @@ liste Cars        </Button>
       :
         switchForm === "listeCars" ? 
         (
-          <TableFacture />
+          <TableCars />
       )
        : 
        (
