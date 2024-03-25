@@ -25,7 +25,7 @@ export const fetchAgences = createAsyncThunk(
 );
 
 export const profileAgence = createAsyncThunk(
-  "settings/profileAgence",
+  "agence/profileAgence",
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(`http://localhost:3005/agency/profile`, {
@@ -38,7 +38,7 @@ export const profileAgence = createAsyncThunk(
       if (response.status >= 200 && response.status <= 299) {
         return response.data;
       } else {
-        throw new Error("Failed to fetch setting");
+        throw new Error("Failed to fetch agence");
       }
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error.message });
@@ -46,16 +46,18 @@ export const profileAgence = createAsyncThunk(
   }
 );
 
-export const updateSettings = createAsyncThunk(
-  "settings/updateSettings",
-  async (localSettings, thunkAPI) => {
+export const updateAgency = createAsyncThunk(
+  "agency/updateAgency",
+  async (form, thunkAPI) => {
     try {
       const response = await axios.patch(
-        `http://localhost:3000/settings/update`,
-        localSettings,
+        `http://localhost:3005/agency/`,
+        form,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("User")).tokenKey
+            }`,
           },
         }
       );
@@ -100,7 +102,7 @@ export const agencySlice = createSlice({
       .addCase(profileAgence.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
-      })
+      });
   },
 });
 
