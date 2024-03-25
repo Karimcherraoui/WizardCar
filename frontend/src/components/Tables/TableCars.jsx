@@ -1,49 +1,64 @@
+import { useSelector } from "react-redux";
 
-  
-  export const    TableFacture = () => {
-    return (
-      <div class="relative overflow-x-auto sm:rounded-lg   rounded-lg shadow-lg my-10 mx-24">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
-            <tr>
-              <th scope="col" class="px-6 py-3">
-                Product name
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Color
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Category
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Price
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+export const TableCars = () => {
+  // const dispatch = useDispatch();
+  const profile = useSelector((state) => state.agency.profile);
+  const cars = profile?.agency.cars;
+  console.log(cars);
+
+  return (
+    <div class="relative overflow-x-auto sm:rounded-lg   rounded-lg shadow-lg my-10 mx-24">
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+          <tr>
+            <th scope="col" class="px-6 py-3">
+              Car
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Fuel
+            </th>
+            <th scope="col" class="px-6 py-3">
+            Plaque
+            </th>
+            <th scope="col" class="px-6 py-3">
+            Prix
+            </th>
+            <th scope="col" class="px-6 py-3">
+            disponibilite
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {cars?.map((car) => (
             <tr class="odd:bg-white  even:bg-gray-50 border-b ">
               <th
                 scope="row"
                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
               >
-                Apple MacBook Pro 17"
+                {car.brand + " " + car.model}
               </th>
-              <td class="px-6 py-4">Silver</td>
-              <td class="px-6 py-4">Laptop</td>
-              <td class="px-6 py-4">$2999</td>
+              <td class="px-6 py-4">{car.fuel}</td>
+              <td class="px-6 py-4">{car.plateNumber}</td>
+              <td class="px-6 py-4">{car.price + " DH"}</td>
+              {
+                (car.disponibility)==="Disponible" ? (
+              <td class="px-6 py-4 font-bold text-green-700">{car.disponibility}</td> 
+              ) : (
+                  <td class="px-6 py-4">Non Disponible</td>
+                )
+              }
+              {/* <td class="px-6 py-4">{car.disponibility}</td> */}
               <td class="px-6 py-4">
-                <a
-                  href="#"
-                  class="font-medium text-blue-600  hover:underline"
-                >
+                <a href="#" class="font-medium text-blue-600  hover:underline">
                   Edit
                 </a>
               </td>
             </tr>
-            <tr class="odd:bg-white  even:bg-gray-50  border-b ">
+          ))}
+          {/* <tr class="odd:bg-white  even:bg-gray-50  border-b ">
               <th
                 scope="row"
                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
@@ -118,10 +133,9 @@
                   Edit
                 </a>
               </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    );
-  };
-  
+            </tr> */}
+        </tbody>
+      </table>
+    </div>
+  );
+};
