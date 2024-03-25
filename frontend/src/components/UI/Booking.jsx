@@ -5,7 +5,7 @@
 // import { fetchCars } from "../../features/carsSlice";
 // import { createInvoice } from "../../features/invoicesSlice";
 
-import { Select } from "@chakra-ui/react";
+import { Input, Select } from "@chakra-ui/react";
 
 // import {
 //   Modal,
@@ -86,100 +86,30 @@ export default function Booking() {
   //   };
 
   return (
-    // cin: { type: String, required: true, unique: true },
-    // numeroPermis: { type: String, required: true, unique: true },
-    // country: { type: String, required: true },
-
     <>
       <form>
-        <div className="flex flex-row justify-between ">
-          <div className="mb-3 w-[50%] mx-10">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              {/* {t("informations.labels.ownerName")} */}
-              Owner Name
-            </label>
-            <input
-              name="owner_name"
-              className="shadow-md appearance-none border rounded w-full py-3 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="text"
-              // placeholder={t("informations.labels.ownerName")}
-              placeholder="Owner Name"
-              value={"test owner name" || ""}
-              // onChange={handleChange}
-            />
-          </div>
-          <div className="mb-3 w-[50%] mx-10">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              {/* {t("informations.labels.ownerLastname")} */}
-              Owner Lastname
-            </label>
-            <input
-              className="shadow-md appearance-none border rounded w-full py-3 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="text"
-              name="owner_lastname"
-              // placeholder={t("informations.labels.ownerLastname")}
-              placeholder="Owner Lastname"
-              value={"test owner lastname" || ""}
-              // onChange={handleChange}
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-row justify-between ">
-          <div className="mb-3 w-[50%] mx-10">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              {/* {t("informations.labels.ownerName")} */}
-              CIN
-            </label>
-            <input
-              name="cin"
-              className="shadow-md appearance-none border rounded w-full py-3 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="text"
-              // placeholder={t("informations.labels.ownerName")}
-              placeholder="CIN"
-              value={"CIN Number" || ""}
-              // onChange={handleChange}
-            />
-          </div>
-          <div className="mb-3 w-[50%] mx-10">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              {/* {t("informations.labels.ownerLastname")} */}
-              Numero de Permi
-            </label>
-            <input
-              className="shadow-md appearance-none border rounded w-full py-3 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="text"
-              name="numero_permis"
-              // placeholder={t("informations.labels.ownerLastname")}
-              placeholder="Owner Lastname"
-              value={"test owner lastname" || ""}
-              // onChange={handleChange}
-            />
-          </div>
-        </div>
-
         <div className="flex flex-row justify-between  ">
           <div className="mb-3 w-[50%] mx-10">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              {/* {t("facture.labels.date")} */}
-              Date
+
+              Date de Reservation
             </label>
             <input
               className="shadow-md  appearance-none border rounded w-full py-3 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="date"
               placeholder="Date"
-              name="date"
+              name="pickupDate"
               //   onChange={handleChange}
             />
           </div>
           <div className="mb-3 w-[50%] mx-10">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              {/* {t("facture.labels.dueDate")} */}
-              Due Date
+
+              Date Retour
             </label>
             <input
               className="shadow-md appearance-none border rounded w-full py-3 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="date"
+              type="returnDate"
               placeholder="Due Date"
               name="dueDate"
               //   onChange={handleChange}
@@ -190,8 +120,8 @@ export default function Booking() {
         <div className="flex flex-row justify-between  ">
           <div className="mb-3 w-[50%] mx-10">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              {/* {t("facture.labels.amount")} */}
-              Pickup Preference
+
+              Reservation methode
             </label>
             <Select
               // options={pickUp?.map((client) => ({
@@ -199,7 +129,7 @@ export default function Booking() {
               //   label: client.firstname + " " + client.surname,
               // }))}
 
-              name="client"
+              name="pickUpType"
               size={"lg"}
               className="shadow-md appearance-none border rounded px-20 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               //   onChange={(value) =>
@@ -212,7 +142,20 @@ export default function Booking() {
           </div>
           <div className="mb-3 w-[50%] mx-10">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              {/* {t("facture.labels.amount")} */}
+
+            Adresse
+            </label>
+            <input
+              className="shadow-md  appearance-none border rounded w-full py-3 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              placeholder="Adresse"
+              name="pickUpLocation"
+              //   onChange={handleChange}
+            />
+          </div>
+          <div className="mb-3 w-[50%] mx-10">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+
               Payment Method
             </label>
             <Select
@@ -230,26 +173,10 @@ export default function Booking() {
           </div>
         </div>
 
-        <div className="flex flex-row justify-between  ">
+        <div className="flex flex-row justify-between w-[50%]  ">
           <div className="mb-3 w-full mx-10">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              {/* {t("informations.labels.ownerLastname")} */}
-              Numero de Permi
-            </label>
-            <input
-              className="shadow-md appearance-none border rounded w-full py-3 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="text"
-              name="numero_permis"
-              // placeholder={t("informations.labels.ownerLastname")}
-              placeholder="Owner Lastname"
-              value={"test owner lastname" || ""}
-              // onChange={handleChange}
-            />
-          </div>
 
-          <div className="mb-3 w-full mx-10">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              {/* {t("facture.labels.memo")} */}
               Message
             </label>
             <textarea
