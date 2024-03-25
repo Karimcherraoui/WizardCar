@@ -1,9 +1,9 @@
 import { Request, Response, json } from "express";
 import Client, { IClient } from "../models/Client";
-import user, { IUser } from "../models/User";
+
 import z from "zod";
 import { MongoServerError } from "mongodb";
-
+import User from "../models/User";
 
 const registrationSchema = z.object({
   firstName: z.string(),
@@ -37,14 +37,29 @@ export const clientController = {
     }
   },
 
-  
-  updateClient: async (req: Request, res: Response) => {
-    const { id } = req.params;
+  getProfile: async (req: Request, res: Response) => {
     try {
+      const client = await Client.findById((req as any).user.referredUser).populate('idUser');
+      // const user = await User.findById((req as any).user.userId);
+      console.log(client);
 
-      const updatedClient = await Client.findByIdAndUpdate(id, req.body, {
-        new: true,
-      });
+      res.status(200).json({ client });
+    } catch (error) {
+      console.error(error);
+      res.status(404).json({ error: "Client not found" });
+    }
+  },
+
+  updateClient: async (req: Request, res: Response) => {
+
+    try {
+      const updatedClient = await Client.findByIdAndUpdate(
+        (req as any).user.referredUser,
+        req.body,
+        {
+          new: true,
+        }
+      );
       if (!updatedClient) {
         return res.status(404).json({ error: "Client not found" });
       }
@@ -60,12 +75,11 @@ export const clientController = {
   deleteClient: async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-  
       const deleteClient = await Client.findByIdAndDelete(id);
       res.status(200).json({
         message: "Client deleted successfully",
       });
-      if(!deleteClient){
+      if (!deleteClient) {
         return res.status(404).json({ error: "Client not found" });
       }
     } catch (error) {
