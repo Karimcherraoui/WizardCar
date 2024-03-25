@@ -6,7 +6,9 @@ export interface IClient extends Document {
   cin: string;
   licenseNumber: string;
   genre: string;
+  phone: string;
   expiration: string;
+  zipCode: string;
   country: string;
   region: string;
   city: string;
@@ -23,6 +25,8 @@ const clientSchema = new mongoose.Schema({
   licenseNumber: { type: String, required: true, unique: true },
   genre: { type: String, required: true },
   expiration: { type: String, required: true },
+  zipCode: { type: String, required: true },
+  phone: { type: String, required: true, unique: true },
   country: { type: String, required: true },
   region: { type: String, required: true },
   city: { type: String, required: true },
