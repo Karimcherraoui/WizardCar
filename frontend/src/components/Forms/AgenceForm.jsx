@@ -1,21 +1,19 @@
 import { Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { profileAgence } from "../../features/agencySlice";
+import { updateAgency } from "../../features/agencySlice";
 
 export const AgenceForm = () => {
   const [localSettings, setLocalSettings] = useState({});
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.agency.profile);
 
+  console.log(profile);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLocalSettings({ ...localSettings, [name]: value });
   };
-
-  useEffect(() => {
-    dispatch(profileAgence());
-  }, []);
 
   useEffect(() => {
     if (profile) {
@@ -26,17 +24,15 @@ export const AgenceForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = { ...localSettings };
-    console.log(form);
+    dispatch(updateAgency(form));
+    window.location.reload(false);
   };
 
   if (!profile) {
     return <div>Loading...</div>;
   }
   return (
-    <form
-        onSubmit={handleSubmit}
-      className="my-10 w-[60%] mx-auto"
-    >
+    <form onSubmit={handleSubmit} className="my-10 w-[60%] mx-auto">
       <Flex
         flexDirection={"column"}
         borderRadius={"lg"}
@@ -57,16 +53,17 @@ export const AgenceForm = () => {
               onChange={handleChange}
             />
           </div>
+
           <div className="mb-4  mx-10 w-[50%]">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Proprietaire Prenom
+              Agence Website
             </label>
             <input
-              className="shadow-md  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              name="website"
+              className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              name="ownerName"
-              placeholder="Owner Name"
-              value={localSettings.ownerName}
+              placeholder="Owner Website"
+              value={localSettings.website}
               onChange={handleChange}
             />
           </div>
@@ -82,26 +79,40 @@ export const AgenceForm = () => {
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Owner Lastname"
-              value={localSettings.ownerLastName}
+              value={localSettings.ownerLastName || ""}
               onChange={handleChange}
             />
           </div>
           <div className="mb-4  mx-10 w-[50%]">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Proprietaire Telephone
+              Proprietaire Prenom
             </label>
             <input
-              name="ownerLastName"
-              className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow-md  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              placeholder="Owner Phone"
-              value={localSettings.ownerLastName}
+              name="ownerName"
+              placeholder="Owner Name"
+              value={localSettings.ownerName || ""}
               onChange={handleChange}
             />
           </div>
         </Flex>
 
         <Flex justify={"center"}>
+          <div className="mb-4  mx-10 w-[50%]">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Phone
+            </label>
+            <input
+              name="phone"
+              className="shadow-md appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              placeholder="Numero de telephone"
+              value={localSettings.phone || ""}
+              onChange={handleChange}
+            />
+          </div>
+
           <div className="mb-4  mx-10 w-[50%]">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Adresse
@@ -111,10 +122,13 @@ export const AgenceForm = () => {
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Street"
-              value={localSettings.address}
+              value={localSettings.address || ""}
               onChange={handleChange}
             />
           </div>
+        </Flex>
+
+        <Flex justify={"center"}>
           <div className="mb-4  mx-10 w-[50%]">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Ville
@@ -124,13 +138,11 @@ export const AgenceForm = () => {
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="City"
-              value={localSettings.city}
+              value={localSettings.city || ""}
               onChange={handleChange}
             />
           </div>
-        </Flex>
 
-        <Flex justify={"center"}>
           <div className="mb-4  mx-10 w-[50%]">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Region
@@ -140,11 +152,13 @@ export const AgenceForm = () => {
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Region"
-              value={localSettings.region}
+              value={localSettings.region || ""}
               onChange={handleChange}
             />
           </div>
+        </Flex>
 
+        <Flex justify={"center"}>
           <div className="mb-4  mx-10 w-[50%]">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Zip Code
@@ -154,13 +168,11 @@ export const AgenceForm = () => {
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Zip Code"
-              value={localSettings.zipCode}
+              value={localSettings.zipCode || ""}
               onChange={handleChange}
             />
           </div>
-        </Flex>
 
-        <Flex justify={"center"}>
           <div className="mb-4  mx-10 w-[50%]">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Pays
@@ -170,10 +182,13 @@ export const AgenceForm = () => {
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Country"
-              value={localSettings.country}
+              value={localSettings.country || ""}
               onChange={handleChange}
             />
           </div>
+        </Flex>
+
+        <Flex justify={"center"}>
           <div className="mb-4  mx-10 w-[50%]">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Numéro de TVA
@@ -183,23 +198,7 @@ export const AgenceForm = () => {
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="VAT Number"
-              value={localSettings.numberTva}
-              onChange={handleChange}
-            />
-          </div>
-        </Flex>
-
-        <Flex justify={"center"}>
-          <div className="mb-4  mx-10 w-[50%]">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Agence Website
-            </label>
-            <input
-              name="website"
-              className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="text"
-              placeholder="Owner Website"
-              value={localSettings.website}
+              value={localSettings.numberTva || ""}
               onChange={handleChange}
             />
           </div>
@@ -212,7 +211,7 @@ export const AgenceForm = () => {
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Bank Name"
-              value={localSettings.bankName}
+              value={localSettings.bankName || ""}
               onChange={handleChange}
             />
           </div>
@@ -228,7 +227,7 @@ export const AgenceForm = () => {
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Bank Account Number"
-              value={localSettings.rib}
+              value={localSettings.rib || ""}
               onChange={handleChange}
             />
           </div>
@@ -241,7 +240,7 @@ export const AgenceForm = () => {
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="IBAN "
-              value={localSettings.iban}
+              value={localSettings.iban || ""}
               onChange={handleChange}
             />
           </div>
