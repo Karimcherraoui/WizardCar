@@ -21,6 +21,7 @@ const registrationSchema = z.object({
   lastName: z.string(),
   cin: z.string(),
   licenseNumber: z.string(),
+  zipCode: z.string(),
   genre: z.string(),
   expiration: z.string(),
   country: z.string(),
@@ -82,19 +83,19 @@ export const AuthController = {
     try {
       const data = registrationSchema.parse(req.body);
 
-      const { phone, email, password, confirmPassword, role, ...clientInfo } =
+      const {email, password, confirmPassword, role, ...clientInfo } =
         data;
 
       const user = await User.findOne({ email });
       if (user) {
         return res.status(400).json({ error: "User already exists" });
       }
-      console.log(clientInfo);
+
 
       const newClient: IClient = await clients.create({
         ...clientInfo,
       });
-      console.log(newClient);
+
 
       if (password !== confirmPassword) {
         return res.status(400).json({ error: "Passwords do not match" });
@@ -102,7 +103,6 @@ export const AuthController = {
       const hashedPassword = await argon2.hash(password);
 
       const newUser: IUser = await User.create({
-        phone,
         email,
         password: hashedPassword,
         role,
@@ -121,7 +121,7 @@ export const AuthController = {
         (error as { name: string; code: number }).name === "MongoServerError" &&
         (error as { name: string; code: number }).code === 11000
       ) {
-        console.log(error);
+
 
         return res.status(400).json({
           error: "A client with the same information already exists.",
@@ -139,7 +139,7 @@ export const AuthController = {
     try {
       const data = registrationAgencySchema.parse(req.body);
 
-      const { phone, email, password, confirmPassword, role, ...agencyInfo } =
+      const {email, password, confirmPassword, role, ...agencyInfo } =
         data;
 
       let user = await User.findOne({ email });
@@ -158,7 +158,6 @@ export const AuthController = {
       }
 
       const newUser: IUser = await User.create({
-        phone,
         email,
         password: hashedPassword,
         role,
