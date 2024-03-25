@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Select } from "@chakra-ui/react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addCar } from "../../features/carsSlice";
@@ -107,13 +107,18 @@ export default function CarForm() {
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Carburant
             </label>
-            <input
+            <Select
               name="fuel"
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Carburant"
               onChange={handleChange}
-            />
+            >
+              <option value="Essence">Essence</option>
+              <option value="Diesel">Diesel</option>
+              <option value="Electric">Electrique</option>
+
+              </Select>
           </div>
         </Flex>
 
@@ -122,25 +127,35 @@ export default function CarForm() {
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Transmission
             </label>
-            <input
+            <Select
               name="transmission"
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Transmission"
               onChange={handleChange}
-            />
+            >
+              <option value="Manuelle">Manuelle</option>
+              <option value="Automatique">Automatique</option>
+
+              </Select>
           </div>
           <div className="mb-4  mx-10 w-[50%]">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Type
             </label>
-            <input
+            <Select
               name="type"
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Type"
               onChange={handleChange}
-            />
+            >
+              <option value="SUV">SUV</option>
+              <option value="Berline">Berline</option>
+              <option value="Citadine">Citadine</option>
+              <option value="Utilitaire">Utilitaire</option>
+
+              </Select>
           </div>
         </Flex>
 
