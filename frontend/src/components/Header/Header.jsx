@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   Avatar,
@@ -10,7 +10,9 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { profileAgence } from "../../features/agencySlice";
+import { profileClient } from "../../features/clientSlice";
 
 const navLinks = [
   {
@@ -36,13 +38,23 @@ const navLinks = [
 ];
 
 const Header = () => {
-  const profile = useSelector((state) => state.agency.profile);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(profileAgence());
+    dispatch(profileClient())
+  }, [dispatch]);
+  const agenceProfile = useSelector((state) => state.agency.profile);
+  const clientProfile = useSelector((state) => state.client.profile);
+  const agence = agenceProfile?.agency;
+  const client = clientProfile?.client;
+
   const user = localStorage.getItem("User");
   const role = user ? JSON.parse(user).role : null;
-const navigate = useNavigate();
-if (!profile) {
-  return <div>Loading...</div>;
-}
+  const navigate = useNavigate();
+
+  // if (!profileAgence && !profileClient) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <header className="header">
@@ -94,7 +106,11 @@ if (!profile) {
 
           {user ? (
             <div className="flex items-center ">
-              <span className="text-white font-bold mx-3">{profile.agency.agencyName}</span>
+              <span className="text-white font-bold mx-3">
+                {role === "client"
+                  ? client?.firstName + " " + client?.lastName
+                  : agence?.agencyName}
+              </span>
 
               <Menu>
                 <MenuButton
@@ -132,7 +148,9 @@ if (!profile) {
                   <MenuDivider />
                   {role === "client" ? (
                     <>
-                      <MenuItem  onClick={() => navigate("/client")}>Profile</MenuItem>
+                      <MenuItem onClick={() => navigate("/client")}>
+                        Profile
+                      </MenuItem>
                       <MenuItem>Mes Factures</MenuItem>
                     </>
                   ) : (
