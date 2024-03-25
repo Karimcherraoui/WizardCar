@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import agencySlice from "./features/agencySlice";
-import { userSlice } from "./features/userSlice";
+import agencyReducer from "./features/agencySlice";
+import clientReducer from "./features/clientSlice";
+import userReducer from "./features/userSlice";
+
 
 
 const store = configureStore({
   reducer: {
-    // Client: clientsReducer,
-    agency: agencySlice ,
-    User: userSlice,
+    client: clientReducer,
+    agency: agencyReducer ,
+    user: userReducer,
     // Cars: carsReducer,
   },
 });
