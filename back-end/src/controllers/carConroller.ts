@@ -49,6 +49,24 @@ export const carController = {
     }
   },
 
+  getCarByAgency: async (req: Request, res: Response) => {
+    const idUser = (req as AuthenticatedRequest).user?.userId;
+    try {
+      const user = await userModel.findById(idUser);
+      const idAgence = user?.referredUser?.toString();
+      const agency = await Agency.findById(idAgence);
+      if (!agency) {
+        return res.status(404).json({ error: "Agency not found" });
+      }
+
+      const cars = await Car.find({ idAgence });
+      res.status(200).json({ cars });
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+
   createCar: async (req: Request, res: Response) => {
     try {
       const data = registrationSchema.parse(req.body);
