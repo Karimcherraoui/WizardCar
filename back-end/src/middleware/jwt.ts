@@ -22,7 +22,7 @@ export const authenticateToken = (
   try {
     if (token) {
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET!);
-      // console.log(decoded);
+
 
       if (decoded && typeof decoded === "object") {
         const { id , referredUser} = decoded;
