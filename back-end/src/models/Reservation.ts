@@ -6,6 +6,11 @@ import { ReservationEnum} from "./enum";
 export interface IReservation extends Document {
   pickupDate: string;
   returnDate: string;
+  pickUpType: string;
+  pickUpLocation: string;
+  paymentMethod: string;
+  message: string;
+  totalPrice: string;
   price: string;
   status: string;
   idCar: mongoose.Types.ObjectId;
@@ -16,6 +21,10 @@ const reservationSchema = new mongoose.Schema({
   pickupDate: { type: String, required: true },
   returnDate: { type: String, required: true },
   price: { type: String, required: true },
+  pickUpType: { type: String, required: true },
+  pickUpLocation: { type: String },
+  paymentMethod: { type: String, required: true },
+  message: { type: String },
   totalPrice: { type: String },
   status: {
     type: String,
