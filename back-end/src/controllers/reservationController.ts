@@ -9,6 +9,10 @@ import Cars from "../models/Cars";
 const registrationSchema = z.object({
   pickupDate: z.string(),
   returnDate: z.string(),
+  pickUpType: z.string(),
+  pickUpLocation: z.string(),
+  paymentMethod: z.string(),
+  message: z.string(),
   status: z.string(),
   idClient: z.string(),
   idCar: z.string(),
@@ -54,7 +58,7 @@ export const reservationController = {
       const {
         pickupDate,
         returnDate,
-        status,
+        status, 
         idClient,
         idCar,
       } = data;
