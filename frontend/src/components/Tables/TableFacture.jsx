@@ -9,8 +9,20 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
 
 export const    TableFacture = () => {
+
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.agency.profile);
+
+
+  console.log("profile", profile?.agency.cars);
+
+
+  
+  
+
   return (
     <div class="relative overflow-x-auto sm:rounded-lg   rounded-lg shadow-lg my-10 mx-24">
       <table class="w-full text-sm text-left rtl:text-right text-gray-500">
