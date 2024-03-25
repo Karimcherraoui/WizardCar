@@ -23,8 +23,11 @@ export const agencyController = {
 
   getProfile: async (req: Request, res: Response) => {
     try {
-      const agency = await Agency.findById((req as any).user.referredUser);
+      const agency = await Agency.findById(
+        (req as any).user.referredUser
+      ).populate("idUser").populate("cars");
       console.log(agency);
+
       res.status(200).json({ agency });
     } catch (error) {
       console.error(error);
@@ -32,15 +35,15 @@ export const agencyController = {
     }
   },
 
-  
- 
   updateAgency: async (req: Request, res: Response) => {
-    const { id } = req.params;
     try {
-
-      const updatedAgency = await Agency.findByIdAndUpdate(id, req.body, {
-        new: true,
-      });
+      const updatedAgency = await Agency.findByIdAndUpdate(
+        (req as any).user.referredUser,
+        req.body,
+        {
+          new: true,
+        }
+      );
       if (!updatedAgency) {
         return res.status(404).json({ error: "Agency not found" });
       }
