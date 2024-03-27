@@ -32,17 +32,19 @@ const registrationSchema = z.object({
 export const carController = {
   getAllCars: async (req: Request, res: Response) => {
     try {
-      const cars = await Car.find();
+      const cars = await Car.find().populate("idAgency");
       res.status(200).json({ cars });
     } catch (error) {
       console.error(error);
     }
   },
 
-  getCar: async (req: Request, res: Response) => {
+  getCar: async (req: Request, res: Response) => {    
     const { id } = req.params;
     try {
       const car = await Car.findById(id);
+      console.log("car",car);
+      
       res.status(200).json({ car });
     } catch (error) {
       console.error(error);
@@ -89,6 +91,7 @@ export const carController = {
 
       const user = await userModel.findById(idUser);
       const idAgence = user?.referredUser?.toString();
+      
       const agency = await Agency.findById(idAgence);
       if (!agency) {
         return res.status(404).json({ error: "Agency not found" });
@@ -107,8 +110,10 @@ export const carController = {
         chassisNumber,
         description,
         image,
-        idAgence,
+        idAgency: idAgence,
       });
+
+      
 
        await Agency.findByIdAndUpdate(
         idAgence,
