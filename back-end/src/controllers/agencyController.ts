@@ -26,8 +26,6 @@ export const agencyController = {
       const agency = await Agency.findById(
         (req as any).user.referredUser
       ).populate("idUser").populate("cars");
-      console.log(agency);
-
       res.status(200).json({ agency });
     } catch (error) {
       console.error(error);
