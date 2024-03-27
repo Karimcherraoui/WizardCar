@@ -7,17 +7,13 @@ import BecomeDriverSection from "../components/UI/BecomeDriverSection";
 import ServicesList from "../components/UI/ServicesList";
 import AboutSection from "../components/UI/AboutSection";
 import HeroSlider from "../components/UI/HeroSlider";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { profileAgence } from "../features/agencySlice";
 import { profileClient } from "../features/clientSlice";
 
-
 const Home = () => {
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(profileAgence());
-  //   dispatch(profileClient())
-  // }, [dispatch]);
+  const cars = useSelector((state) => state.car.cars);
+  console.log(cars);
   return (
     <Helmet title="Home">
       {/* ============= hero section =========== */}
@@ -41,15 +37,18 @@ const Home = () => {
       {/* =========== car offer section ============= */}
       <section>
         <div className="container mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-3 mb-5">
-            <div className="col-span-3 text-center my-5">
-              <h6 className="section__subtitle">Come with</h6>
-              <h2 className="section__title">Hot Offers</h2>
-            </div>
-
-            {carData.slice(0, 6).map((item) => (
+          <div className="col-span-3 text-center my-5">
+            <h6 className="section__subtitle">Come with</h6>
+            <h2 className="section__title">Hot Offers</h2>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 mb-5 gap-5">
+            {cars?.map((item) => (
               <CarItem item={item} key={item.id} />
             ))}
+
+            {/* {carData.slice(0, 6).map((item) => (
+              <CarItem item={item} key={item.id} />
+            ))} */}
           </div>
         </div>
       </section>
