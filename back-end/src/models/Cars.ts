@@ -58,7 +58,7 @@ const carsSchema = new mongoose.Schema({
   },  
   idAgency: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'agencys', 
+    ref: 'Agency', 
   },
   idClient: {
     type: mongoose.Schema.Types.ObjectId,
