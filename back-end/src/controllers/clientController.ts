@@ -41,7 +41,6 @@ export const clientController = {
     try {
       const client = await Client.findById((req as any).user.referredUser).populate('idUser');
       // const user = await User.findById((req as any).user.userId);
-      console.log(client);
 
       res.status(200).json({ client });
     } catch (error) {
