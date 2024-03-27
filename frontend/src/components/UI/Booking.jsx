@@ -6,6 +6,7 @@
 // import { createInvoice } from "../../features/invoicesSlice";
 
 import { Input, Select } from "@chakra-ui/react";
+import { useState } from "react";
 
 // import {
 //   Modal,
@@ -24,31 +25,6 @@ import { Input, Select } from "@chakra-ui/react";
 // import { useTranslation } from "react-i18next";
 
 export default function Booking() {
-  const clients = [
-    {
-      id: 1,
-      firstname: "John",
-      surname: "Doe",
-    },
-    {
-      id: 2,
-      firstname: "Jane",
-      surname: "jbdl",
-    },
-  ];
-  const cars = [
-    {
-      id: 1,
-      brand: "Toyota",
-      carType: "Corolla",
-    },
-    {
-      id: 2,
-      brand: "Honda",
-      carType: "Civic",
-    },
-  ];
-
   //   const dispatch = useDispatch();
 
   //   useEffect(() => {
@@ -59,9 +35,7 @@ export default function Booking() {
 
   //   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  //   const [factureForm, setFactureForm] = useState({
-  //     paidStatus: false,
-  //   });
+  const [factureForm, setFactureForm] = useState({});
   //   const clients = useSelector((state) => state.Clients.clients);
   //   const cars = useSelector((state) => state.Cars.cars);
   //   const settings = useSelector((state) => state.Settings.settings);
@@ -78,20 +52,22 @@ export default function Booking() {
 
   //   };
   //   const { t } = useTranslation();
-  //   const handleChange = (e) => {
-  //     let { name, value } = e.target;
-  //     if (e.target.type === "number") value = Number(value);
-  //     if (e.target.type === "checkbox") value = e.target.checked;
-  //     setFactureForm({ ...factureForm, [name]: value });
-  //   };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFactureForm({ ...factureForm, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(factureForm);
+  };
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="flex flex-row justify-between  ">
           <div className="mb-3 w-[50%] mx-10">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-
               Date de Reservation
             </label>
             <input
@@ -99,20 +75,19 @@ export default function Booking() {
               type="date"
               placeholder="Date"
               name="pickupDate"
-              //   onChange={handleChange}
+              onChange={handleChange}
             />
           </div>
           <div className="mb-3 w-[50%] mx-10">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-
               Date Retour
             </label>
             <input
               className="shadow-md appearance-none border rounded w-full py-3 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="returnDate"
+              type="date"
               placeholder="Due Date"
-              name="dueDate"
-              //   onChange={handleChange}
+              name="returnDate"
+              onChange={handleChange}
             />
           </div>
         </div>
@@ -120,27 +95,20 @@ export default function Booking() {
         <div className="flex flex-row justify-between  ">
           <div className="mb-3 w-[50%] mx-10">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-
               Reservation methode
             </label>
             <Select
-              // options={pickUp?.map((client) => ({
-              //   value: client.id,
-              //   label: client.firstname + " " + client.surname,
-              // }))}
-
               name="pickUpType"
               size={"lg"}
+              placeholder=" "
               className="shadow-md appearance-none border rounded px-20 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              //   onChange={(value) =>
-              //     setFactureForm({ ...factureForm, client_id: value.value })
-              //   }
+              onChange={handleChange}
             >
-              <option value="on-site">On-site</option>
-              <option value="delivery">Delivery</option>
+              <option value="OnSite">Sur place</option>
+              <option value="Delivery">Livraison</option>
             </Select>
           </div>
-          <div className="mb-3 w-[50%] mx-10">
+          {/* <div className="mb-3 w-[50%] mx-10">
             <label className="block text-gray-700 text-sm font-bold mb-2">
 
             Adresse
@@ -152,41 +120,36 @@ export default function Booking() {
               name="pickUpLocation"
               //   onChange={handleChange}
             />
-          </div>
+          </div> */}
           <div className="mb-3 w-[50%] mx-10">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-
               Payment Method
             </label>
             <Select
-              options={clients?.map((client) => ({
-                value: client.id,
-                label: client.firstname + " " + client.surname,
-              }))}
               name="client"
               size={"lg"}
+              placeholder=" "
               className="shadow-md appearance-none border rounded px-20 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              //   onChange={(value) =>
-              //     setFactureForm({ ...factureForm, client_id: value.value })
-              //   }
-            />
+              onChange={handleChange}
+            >
+              <option value="Cod">paiement à la livraison</option>
+              <option value="BankTransfer">Virement bancaire</option>
+            </Select>
           </div>
         </div>
 
         <div className="flex flex-row justify-between w-[50%]  ">
           <div className="mb-3 w-full mx-10">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-
               Message
             </label>
             <textarea
               rows="2"
               className="shadow-md appearance-none border rounded w-full py-3 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              //   placeholder={t("facture.labels.memo")}
               placeholder="Message"
               name="message"
-              //   onChange={handleChange}
+              onChange={handleChange}
             />
           </div>
         </div>
