@@ -2,7 +2,6 @@ import React from "react";
 
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import Routers from "../../routers/Routers";
 
 import Login from "../../pages/Login";
 import Register from "../../pages/Register";
@@ -26,7 +25,9 @@ const WithHeader = () => {
   return (
     <>
       <Header />
-      <div><Outlet/></div>
+      <div>
+        <Outlet />
+      </div>
       <Footer />
     </>
   );
@@ -37,7 +38,7 @@ const Layout = () => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route element={<WithHeader/>}>
+      <Route element={<WithHeader />}>
         <Route
           path="/home"
           element={
@@ -64,7 +65,7 @@ const Layout = () => {
           }
         />
         <Route
-          path="/cars/:slug"
+          path="/car/:id"
           element={
             <>
               <CarDetails />
