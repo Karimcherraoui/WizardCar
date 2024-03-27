@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signupAgency } from "../../features/authSlice";
+import axios from "axios";
 
 export default function RegisterAgency() {
   const [localSettings, setLocalSettings] = useState({
@@ -8,9 +9,24 @@ export default function RegisterAgency() {
   });
   const dispatch = useDispatch();
 
+  const [panding, setPanding] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLocalSettings({ ...localSettings, [name]: value });
+  };
+
+  const handleImage = async (e) => {
+    const { name, files } = e.target;
+    const formData = new FormData();
+    formData.append("logo", files[0]);
+    setPanding(true);
+    const { data: imageData } = await axios.post(
+      "http://localhost:3005/uploadLogo",
+      formData
+    );
+    setLocalSettings({ ...localSettings, [name]: imageData.url });
+    setPanding(false);
   };
 
   const handleSubmit = (e) => {
@@ -219,7 +235,6 @@ export default function RegisterAgency() {
                 </div>
               </div>
               <div className="flex gap-20">
-            
                 <div className="relative">
                   <input
                     onChange={handleChange}
@@ -258,7 +273,6 @@ export default function RegisterAgency() {
               </div>
 
               <div className="flex gap-20">
-            
                 <div className="relative">
                   <input
                     onChange={handleChange}
@@ -296,7 +310,6 @@ export default function RegisterAgency() {
               </div>
 
               <div className="flex gap-20">
-             
                 <div className="relative">
                   <input
                     onChange={handleChange}
@@ -364,7 +377,7 @@ export default function RegisterAgency() {
                   </label>
                   <input
                     name="logo"
-                    onChange={handleChange}
+                    onChange={handleImage}
                     className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     aria-describedby="file_input_help"
                     id="file_input"
@@ -375,6 +388,7 @@ export default function RegisterAgency() {
 
               <div className="relative text-center  ">
                 <button
+                  disabled={panding}
                   type="submit"
                   className="bg-green-500 text-white rounded-md px-4 py-2 mt-4"
                 >
