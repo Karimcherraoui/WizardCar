@@ -3,7 +3,7 @@ import servicesData from "../../assets/data/serviceData";
 
 const ServicesList = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 ">
       {servicesData.map((item) => (
         <ServiceItem item={item} key={item.id} />
       ))}
@@ -12,7 +12,7 @@ const ServicesList = () => {
 };
 
 const ServiceItem = ({ item }) => (
-  <div className="mb-3 shadow-sm rounded-lg ">
+  <div className="mb-3 shadow-md rounded-lg  p-4">
     <div className="service__item text-center ">
       <span className="mb-3 inline-block">
         <i className={`${item.icon} text-5xl text-primary`} />
