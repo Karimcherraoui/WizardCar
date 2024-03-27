@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import multer, { Multer, MulterError } from 'multer'; 
+import multer from 'multer'; 
 
 
 
