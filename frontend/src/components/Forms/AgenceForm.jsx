@@ -2,9 +2,11 @@ import { Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAgency } from "../../features/agencySlice";
+import axios from "axios";
 
 export const AgenceForm = () => {
   const [localSettings, setLocalSettings] = useState({});
+  const [panding, setPanding] = useState(false);
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.agency.profile);
 
@@ -13,6 +15,16 @@ export const AgenceForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLocalSettings({ ...localSettings, [name]: value });
+  };
+
+  const handleImage = async (e) => {
+    const { name, files } = e.target;
+    const formData = new FormData();
+    formData.append("image", files[0]);
+    setPanding(true);
+    const {data:imageData} = await axios.post("http://localhost:3005/uploadLogo", formData);
+    setLocalSettings({ ...localSettings, [name]: imageData.url });
+    setPanding(false);
   };
 
   useEffect(() => {
@@ -254,7 +266,7 @@ export const AgenceForm = () => {
               name="logo"
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="file"
-              onChange={handleChange}
+              onChange={handleImage}
             />
           </div>
         </Flex>
@@ -263,6 +275,7 @@ export const AgenceForm = () => {
           <button
             className="bg-blue-500 mt-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
+            disabled={panding}
           >
             Update
           </button>
