@@ -10,7 +10,7 @@ export const uploadController = {
       }
       res.json({
         message: "File uploaded successfully",
-        url: `${req.protocol}://${req.get("host")}/${file.filename}`,
+        url: `${req.protocol}://${req.get("host")}/images/${file.filename}`,
       });
     } catch (error) {
       res.status(500).send(error);
