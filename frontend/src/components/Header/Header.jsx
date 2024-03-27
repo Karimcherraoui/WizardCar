@@ -13,6 +13,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { profileAgence } from "../../features/agencySlice";
 import { profileClient } from "../../features/clientSlice";
+import { fetchCars } from "../../features/carsSlice";
 
 const navLinks = [
   {
@@ -42,15 +43,20 @@ const Header = () => {
   useEffect(() => {
     dispatch(profileAgence());
     dispatch(profileClient())
+    dispatch(fetchCars());
   }, [dispatch]);
   const agenceProfile = useSelector((state) => state.agency.profile);
   const clientProfile = useSelector((state) => state.client.profile);
+  const allCars = useSelector((state) => state.car.cars);
   const agence = agenceProfile?.agency;
   const client = clientProfile?.client;
 
   const user = localStorage.getItem("User");
   const role = user ? JSON.parse(user).role : null;
   const navigate = useNavigate();
+
+
+  console.log(allCars);
 
   // if (!profileAgence && !profileClient) {
   //   return <div>Loading...</div>;
