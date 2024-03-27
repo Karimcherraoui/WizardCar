@@ -26,6 +26,7 @@ export default function CarForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addCar({ form: carForm }));
+    setCarForm({});
   };
 
   return (
