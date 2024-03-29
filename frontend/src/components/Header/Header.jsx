@@ -42,7 +42,7 @@ const Header = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(profileAgence());
-    dispatch(profileClient())
+    dispatch(profileClient());
     dispatch(fetchCars());
   }, [dispatch]);
   const agenceProfile = useSelector((state) => state.agency.profile);
@@ -55,8 +55,6 @@ const Header = () => {
   const role = user ? JSON.parse(user).role : null;
   const navigate = useNavigate();
 
-
-  console.log(allCars);
 
   // if (!profileAgence && !profileClient) {
   //   return <div>Loading...</div>;
