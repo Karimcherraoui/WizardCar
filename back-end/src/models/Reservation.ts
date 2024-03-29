@@ -20,11 +20,11 @@ export interface IReservation extends Document {
 const reservationSchema = new mongoose.Schema({
   pickupDate: { type: String, required: true },
   returnDate: { type: String, required: true },
-  price: { type: String, required: true },
+  price: { type: String },
   pickUpType: { type: String, required: true },
-  pickUpLocation: { type: String },
+  pickUpLocation: { type: String},
   paymentMethod: { type: String, required: true },
-  message: { type: String },
+  message: { type: String ,required: true},
   totalPrice: { type: String },
   status: {
     type: String,
@@ -33,7 +33,7 @@ const reservationSchema = new mongoose.Schema({
   },
   idCar: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "cars",
+    ref: "Cars",
   },  
 
   createdAt: {
@@ -42,7 +42,11 @@ const reservationSchema = new mongoose.Schema({
   },
   idClient: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: "clients",
+  },
+  idAgence: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Agency",
   },
 });
 
