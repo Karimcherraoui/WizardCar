@@ -13,7 +13,7 @@ import { profileClient } from "../features/clientSlice";
 
 const Home = () => {
   const cars = useSelector((state) => state.car.cars);
-  console.log(cars);
+
   return (
     <Helmet title="Home">
       {/* ============= hero section =========== */}
