@@ -18,6 +18,7 @@ export interface IAgency extends Document {
   logo: string; 
   cars: mongoose.Types.ObjectId[];
   idUser: mongoose.Types.ObjectId;
+  idAgence: mongoose.Types.ObjectId;
 }
 
 const agencySchema = new mongoose.Schema<IAgency>({
@@ -37,6 +38,7 @@ const agencySchema = new mongoose.Schema<IAgency>({
   iban: { type: String, required: true, unique:true },
   logo: { type: String, required: true, unique:true },
   idUser: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+  idAgence: { type: mongoose.Schema.Types.ObjectId, ref: 'Agency' },
   cars: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cars' }],
 }, { timestamps: true });
 
