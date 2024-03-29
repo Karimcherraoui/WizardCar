@@ -2,9 +2,11 @@ import React from "react";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import CarItem from "../components/UI/CarItem";
-import carData from "../assets/data/carData";
+import { useSelector } from "react-redux";
 
 const CarListing = () => {
+  const cars = useSelector((state) => state.car.cars);
+
   return (
     <Helmet title="Cars">
       <CommonSection title="Car Listing" />
@@ -23,7 +25,7 @@ const CarListing = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-20">
-          {carData.map((item) => (
+          {cars?.map((item) => (
             <CarItem item={item} key={item.id} />
           ))}
         </div>
