@@ -34,7 +34,7 @@ export const signupAgency = createAsyncThunk(
   "auth/signupAgency",
   async ({ form }, thunkAPI) => {
     try {
-      console.log(form);
+
       const response = await axios.post(
         `http://localhost:3005/auth/register/agency`,
         form
@@ -50,7 +50,7 @@ export const signupClient = createAsyncThunk(
   "auth/signupClient",
   async ({ form }, thunkAPI) => {
     try {
-      console.log(form);
+
       const response = await axios.post(
         `http://localhost:3005/auth/register/client`,
         form
