@@ -4,7 +4,7 @@ export const TableCars = () => {
   // const dispatch = useDispatch();
   const profile = useSelector((state) => state.agency.profile);
   const cars = profile?.agency.cars;
-  console.log(cars);
+
 
   return (
     <div class="relative overflow-x-auto sm:rounded-lg   rounded-lg shadow-lg my-10 mx-24">
