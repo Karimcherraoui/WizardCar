@@ -9,9 +9,6 @@ export const AgenceForm = () => {
   const [panding, setPanding] = useState(false);
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.agency.profile);
-
-  console.log(profile);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLocalSettings({ ...localSettings, [name]: value });
@@ -75,7 +72,7 @@ export const AgenceForm = () => {
               className="shadow-md appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Owner Website"
-              value={localSettings.website}
+              value={localSettings.website || ""}
               onChange={handleChange}
             />
           </div>
