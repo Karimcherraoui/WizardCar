@@ -1,16 +1,19 @@
 import React from "react";
 import "../../styles/car-item.css";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCar } from "../../features/carsSlice";
 import { useNavigate } from "react-router-dom";
 
 const CarItem = (props) => {
-
   const navigate = useNavigate();
   const handleRent = (_id) => {
+    if (disponibility === "Non disponible") {
+      alert("La voiture est deja reservee");
+      return;
+    }
+
     navigate("/car/" + _id);
-    
   };
+
+
 
   const {
     image,
@@ -19,6 +22,7 @@ const CarItem = (props) => {
     transmission,
     type,
     price,
+    disponibility,
     fuel,
     idAgency,
     _id,
@@ -45,9 +49,20 @@ const CarItem = (props) => {
               {idAgency?.agencyName}
             </h5>
           </div>
-          <h6 className=" text-center mt-4 font-bold">
-            {price} DH <span>/ Jour</span>
-          </h6>
+          <div className="flex flex-row justify-between items-center  mt-4">
+            <h6 className=" text-center font-bold text-gray-700">
+              {price} DH <span>/ Jour</span>
+            </h6>
+            <h6
+              className={
+                disponibility === "Non disponible"
+                  ? "bg-red-600 px-2 py-1 text-white rounded-md"
+                  : "bg-green-600 px-2 py-1 text-white rounded-md"
+              }
+            >
+              {disponibility}
+            </h6>
+          </div>
 
           <div className=" flex items-center justify-between mt-3 mb-4 gap-2">
             <span className="flex items-center gap-1 flex-col text-[#696969]">
