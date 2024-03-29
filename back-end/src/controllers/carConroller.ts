@@ -42,8 +42,7 @@ export const carController = {
   getCar: async (req: Request, res: Response) => {    
     const { id } = req.params;
     try {
-      const car = await Car.findById(id);
-      console.log("car",car);
+      const car = await Car.findById(id).populate("idAgency");
       
       res.status(200).json({ car });
     } catch (error) {
