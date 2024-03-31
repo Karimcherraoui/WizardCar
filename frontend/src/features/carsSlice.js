@@ -14,7 +14,7 @@ export const fetchCars = createAsyncThunk(
     try {
       const response = await axios.get(`http://localhost:3005/car/`);
       if (response.status >= 200 && response.status <= 299) {
-
+        console.log(response.data);
         return response.data;
       } else {
         throw new Error("Failed to fetch cars");
