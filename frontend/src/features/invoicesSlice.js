@@ -11,15 +11,17 @@ export const fetchInvoices = createAsyncThunk(
   "invoices/fetchInvoices",
   async (agenceId, thunkAPI) => {
     try {
-      const response = await axios.get(`http://localhost:3005/invoice/list/${agenceId}`, {
-        headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("User")).tokenKey
-          }`,
-        },
-      });
+      const response = await axios.get(
+        `http://localhost:3005/invoice/list/${agenceId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("User")).tokenKey
+            }`,
+          },
+        }
+      );
       if (response.status >= 200 && response.status <= 299) {
-
         return response.data;
       } else {
         throw new Error("Failed to fetch invoices");
@@ -33,11 +35,33 @@ export const fetchInvoices = createAsyncThunk(
 export const createInvoice = createAsyncThunk(
   "invoices/createInvoice",
   async (form, thunkAPI) => {
-
     try {
-      const response = await axios.post(
-        `http://localhost:3005/invoice`,
-        form,
+      const response = await axios.post(`http://localhost:3005/invoice`, form, {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("User")).tokenKey
+          }`,
+        },
+      });
+      if (response.status >= 200 && response.status <= 299) {
+        return response.data;
+      } else {
+        throw new Error("Failed to create invoice");
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+
+export const updateInvoice = createAsyncThunk(
+  "invoices/updateInvoice",
+  async (actionData, thunkAPI) => {
+    const { id } = actionData;
+    try {
+      const response = await axios.patch(
+        `http://localhost:3005/invoice/${id}`,
+        actionData,
         {
           headers: {
             Authorization: `Bearer ${
@@ -49,7 +73,7 @@ export const createInvoice = createAsyncThunk(
       if (response.status >= 200 && response.status <= 299) {
         return response.data;
       } else {
-        throw new Error("Failed to create invoice");
+        throw new Error("Failed to update invoice");
       }
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error.message });
