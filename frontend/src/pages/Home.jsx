@@ -7,9 +7,7 @@ import BecomeDriverSection from "../components/UI/BecomeDriverSection";
 import ServicesList from "../components/UI/ServicesList";
 import AboutSection from "../components/UI/AboutSection";
 import HeroSlider from "../components/UI/HeroSlider";
-import { useDispatch, useSelector } from "react-redux";
-import { profileAgence } from "../features/agencySlice";
-import { profileClient } from "../features/clientSlice";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const cars = useSelector((state) => state.car.cars);
