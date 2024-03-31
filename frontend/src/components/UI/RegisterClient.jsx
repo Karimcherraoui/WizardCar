@@ -73,6 +73,7 @@ export default function RegisterClient() {
               <div className="flex gap-20">
                 <div className="relative ">
                   <input
+                  data-cy="cin-user"
                     onChange={handleChange}
                     autocomplete="off"
                     id="cin"
@@ -111,6 +112,7 @@ export default function RegisterClient() {
               <div className="flex gap-20">
                 <div className="relative w-full">
                   <select
+                  data-cy="genre"
                     onChange={handleChange}
                     autocomplete="off"
                     id="genre"
@@ -146,6 +148,7 @@ export default function RegisterClient() {
               <div className="flex gap-20">
                 <div className="relative">
                   <input
+                  data-cy="password"
                     onChange={handleChange}
                     autocomplete="off"
                     id="password"
@@ -163,6 +166,7 @@ export default function RegisterClient() {
                 </div>
                 <div className="relative">
                   <input
+                  data-cy="confirmPassword"
                     onChange={handleChange}
                     autocomplete="off"
                     id="passwordConfirmation"
