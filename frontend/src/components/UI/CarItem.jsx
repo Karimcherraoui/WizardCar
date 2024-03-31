@@ -13,8 +13,6 @@ const CarItem = (props) => {
     navigate("/car/" + _id);
   };
 
-
-
   const {
     image,
     model,
@@ -30,17 +28,26 @@ const CarItem = (props) => {
   return (
     <div className="w-full ">
       <div className=" bg-white py-4 px-4 w-[320px]  shadow-lg rounded-md h-[480px]  mb-10">
-        <h4 className="text-center mb-4  font-bold uppercase">
+        <h4
+          data-cy="car-name"
+          className="text-center mb-4  font-bold uppercase"
+        >
           {brand + " " + model}
         </h4>
 
         <div className=" max-h-[180px] min-h-[180px]">
-          <img src={image} alt={brand} className="bg-gray-200 rounded " />
+          <img
+            data-cy="car-image"
+            src={image}
+            alt={brand}
+            className="bg-gray-200 rounded "
+          />
         </div>
 
         <div className=" ">
           <div className="flex flex-row justify-center items-center mt-4">
             <img
+              data-cy="agency-logo"
               src={idAgency?.logo}
               alt={idAgency?.agencyName}
               className="bg-gray-200 rounded-full w-[50px] h-[50px] "
@@ -50,7 +57,10 @@ const CarItem = (props) => {
             </h5>
           </div>
           <div className="flex flex-row justify-between items-center  mt-4">
-            <h6 className=" text-center font-bold text-gray-700">
+            <h6
+              data-cy="car-price"
+              className=" text-center font-bold text-gray-700"
+            >
               {price} DH <span>/ Jour</span>
             </h6>
             <h6
