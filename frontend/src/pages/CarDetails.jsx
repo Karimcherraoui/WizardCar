@@ -22,7 +22,6 @@ const CarDetails = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-
     if (id) {
       dispatch(fetchCar(id));
     }
@@ -45,7 +44,8 @@ const CarDetails = () => {
     <Helmet title={car?.brand + " " + car?.model}>
       <section className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20 mt-14">
-          <div>
+          <div               data-cy="car-image"
+>
             <img
               src={car?.image}
               alt=""
@@ -54,20 +54,31 @@ const CarDetails = () => {
           </div>
 
           <div className="car__info">
-            <h2 className="section__title font-bold">
+            <h2 data-cy="car-name" className="section__title font-bold">
               {car?.brand + " " + car?.model}
             </h2>
 
             <div className=" mb-4 mt-3">
-              <h6 className="rent__price font-bold text-xl text-right text-green-600">
+              <h6
+                data-cy="car-price"
+                className="rent__price font-bold text-xl text-right text-green-600"
+              >
                 {car?.price} DH / Jour
               </h6>
             </div>
 
-            <p className="section__description w-[80%]">{car?.description}</p>
+            <p
+              data-cy="car-description"
+              className="section__description w-[80%]"
+            >
+              {car?.description}
+            </p>
 
             <div className=" grid grid-cols-3 items-center justify-between mt-10 mb-4 gap-8 ">
-              <span className="flex items-center gap-1 flex-col text-[#696969]">
+              <span
+                data-cy="car-type"
+                className="flex items-center gap-1 flex-col text-[#696969]"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="1em"
