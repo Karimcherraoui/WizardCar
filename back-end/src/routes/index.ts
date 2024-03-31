@@ -24,6 +24,6 @@ router.use("/car", carRoute);
 router.use("/invoice", reservationRoute);
 router.use("/agency", agencyRoute);
 router.use("/client", clientRoute);
-router.use("/reservation", reservationRoute);
+// router.use("/reservation", reservationRoute);
 
 export default router;
