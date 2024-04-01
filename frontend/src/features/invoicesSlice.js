@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   invoices: [],
+  invoicesClient: [],
   status: "idle",
   error: null,
 };
@@ -13,6 +14,30 @@ export const fetchInvoices = createAsyncThunk(
     try {
       const response = await axios.get(
         `http://localhost:3005/invoice/list/${agenceId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("User")).tokenKey
+            }`,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status <= 299) {
+        return response.data;
+      } else {
+        throw new Error("Failed to fetch invoices");
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+export const fetchInvoicesClient = createAsyncThunk(
+  "invoicesClient/fetchInvoicesClient",
+  async (clientId, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3005/invoice/client-reservation/${clientId}`,
         {
           headers: {
             Authorization: `Bearer ${
@@ -98,7 +123,19 @@ const invoicesSlice = createSlice({
       .addCase(fetchInvoices.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
-      });
+      })
+      .addCase(fetchInvoicesClient.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(fetchInvoicesClient.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.invoicesClient = action.payload;
+      })
+      .addCase(fetchInvoicesClient.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
     // ________________________________________________________________
   },
 });
