@@ -108,7 +108,6 @@ export const ClientForm = () => {
               name="phone"
               placeholder="Numero de Telephone"
               value={infoClient?.phone || ""}
-              // onChange={handleChangeUser}
             />
           </div>
           <div className="mb-4  mx-10 w-[50%]">
@@ -208,7 +207,7 @@ export const ClientForm = () => {
               type="text"
               placeholder="Zip Code"
               value={infoClient?.zipCode || ""}
-              // onChange={handleChange}
+              onChange={handleChangeClient}
             />
           </div>
         </Flex>
