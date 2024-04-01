@@ -50,7 +50,7 @@ WizardCar is a web application designed for car rental, aimed at simplifying the
    git clone <https://github.com/Karimcherraoui/WizardCar.git>
 ### Front-End
    2. **Accéder au répertoire du Front :**
-      pour partie Front `cd frontend`
+     `cd frontend`
 
    3. **Installation des dépendances :**
       `npm install`
@@ -63,7 +63,7 @@ WizardCar is a web application designed for car rental, aimed at simplifying the
    ### Back End 
 
      2. **Accéder au répertoire du Back :**
-      pour partie Front `cd back-end`
+     `cd back-end`
 
    3. **Installation des dépendances :**
       `npm install`
