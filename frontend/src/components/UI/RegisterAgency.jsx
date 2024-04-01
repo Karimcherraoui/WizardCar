@@ -51,7 +51,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="campany_Name"
                     name="agencyName"
                     type="text"
@@ -69,7 +69,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="adress"
                     name="address"
                     type="text"
@@ -89,7 +89,7 @@ export default function RegisterAgency() {
                 <div className="relative ">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="owner_name"
                     name="ownerName"
                     type="text"
@@ -107,7 +107,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="owner_lastname"
                     name="ownerLastName"
                     type="text"
@@ -127,7 +127,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="phone"
                     name="phone"
                     type="text"
@@ -145,7 +145,7 @@ export default function RegisterAgency() {
                 <div className="relative ">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="email"
                     name="email"
                     type="text"
@@ -165,7 +165,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="password"
                     name="password"
                     type="password"
@@ -182,7 +182,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="confirm"
                     name="confirmPassword"
                     type="password"
@@ -202,7 +202,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="ville"
                     name="city"
                     type="text"
@@ -219,7 +219,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="nationalite"
                     name="country"
                     type="text"
@@ -238,7 +238,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="zip"
                     name="zipCode"
                     type="text"
@@ -256,7 +256,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="region"
                     name="region"
                     type="text"
@@ -276,7 +276,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="tva"
                     name="numberTva"
                     type="text"
@@ -293,7 +293,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="site"
                     name="website"
                     type="text"
@@ -313,7 +313,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="rib"
                     name="rib"
                     type="text"
@@ -331,7 +331,7 @@ export default function RegisterAgency() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="bank"
                     name="bankName"
                     type="text"
@@ -351,7 +351,7 @@ export default function RegisterAgency() {
                 <div className="relative w-full">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="iban"
                     name="iban"
                     type="text"
