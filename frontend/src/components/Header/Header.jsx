@@ -150,6 +150,7 @@ const Header = () => {
                         ? client?.firstName + " " + client?.lastName
                         : agence?.agencyName}
                     </p>
+                    
                   </Center>
                   <Center>
                     <p className="text-gray-400">
