@@ -41,7 +41,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 mb-5 gap-5">
             {cars?.map((item) => (
-              <CarItem item={item} key={item.id} />
+              <CarItem item={item} key={item._id} />
             ))}
 
             {/* {carData.slice(0, 6).map((item) => (
