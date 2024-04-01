@@ -1,27 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import car from "../assets/all-images/rolce.jpg";
 import flech from "../assets/all-images/flech.png";
 import { useDispatch } from "react-redux";
 import { signin } from "../features/authSlice";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
   const dispatch = useDispatch();
   const navigation = useNavigate();
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("User");
+    if (loggedIn) {
+      navigation("/");
+    }
+  }
+  , [navigation]);
+ 
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
   });
 
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = { ...formData };
-    dispatch(signin({ form, navigate: navigation}));
+    dispatch(signin({ form, navigate: navigation }));
   };
 
   return (
@@ -55,7 +64,7 @@ export default function Login() {
                   <div className="relative">
                     <input
                       onChange={handleChange}
-                      autocomplete="off"
+                      autoComplete="off"
                       id="email"
                       name="email"
                       type="text"
@@ -69,10 +78,11 @@ export default function Login() {
                       Email
                     </label>
                   </div>
+
                   <div className="relative">
                     <input
                       onChange={handleChange}
-                      autocomplete="off"
+                      autoComplete="off"
                       id="password"
                       name="password"
                       type="password"
@@ -86,7 +96,7 @@ export default function Login() {
                       Password
                     </label>
                   </div>
-                  <div className="relative text-center mt-10 ">
+                  <div className="relative text-left my-10 ">
                     <button
                       type="submit"
                       className="bg-blue-500 text-white rounded-md px-2 py-1"
@@ -94,12 +104,18 @@ export default function Login() {
                       Connect
                     </button>
                   </div>
+                  <div className="text-right mb-0 mr-2">
+                    <Link to="/register" className="text-gray-700 underline">
+                      Don't have an account?
+                    </Link>
+                  </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
