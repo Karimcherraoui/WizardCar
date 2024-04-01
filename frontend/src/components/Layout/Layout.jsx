@@ -20,6 +20,10 @@ import Client from "../../pages/ClientDashboard";
 import Agence from "../../pages/AgenceDashboard";
 import PrivateRouteAgence from "../../routers/PrivateRouteAgence";
 import PrivateRouteClient from "../../routers/PrivateRouteClient";
+import { TableFacture } from "../Tables/TableFacture";
+import { TableCars } from "../Tables/TableCars";
+import CarForm from "../Forms/CarForm";
+import { AgenceForm } from "../Forms/AgenceForm";
 
 const WithHeader = () => {
   return (
@@ -107,6 +111,39 @@ const Layout = () => {
             </PrivateRouteAgence>
           }
         />
+         <Route
+          path="/agence/reservation"
+          element={
+            <PrivateRouteAgence>
+              <TableFacture />
+            </PrivateRouteAgence>
+          }
+        />
+          <Route
+          path="/agence/profile"
+          element={
+            <PrivateRouteAgence>
+              <AgenceForm />
+            </PrivateRouteAgence>
+          }
+        />
+           <Route
+          path="/agence/cars"
+          element={
+            <PrivateRouteAgence>
+              <TableCars />
+            </PrivateRouteAgence>
+          }
+        />
+         <Route
+          path="/agence/car-create"
+          element={
+            <PrivateRouteAgence>
+              <CarForm />
+            </PrivateRouteAgence>
+          }
+        />
+
         <Route path="/dashboard" element={<DashboardAgency />} />
       </Route>
       <Route path="*" element={<NotFound />} />
