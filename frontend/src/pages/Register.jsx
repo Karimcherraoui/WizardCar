@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import flech from "../assets/all-images/flechWhite.png";
 import car from "../assets/all-images/route.jpg";
 import RegisterClient from "../components/UI/RegisterClient";
 import RegisterAgency from "../components/UI/RegisterAgency";
+import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router";
+
 
 export default function Register() {
   const [isClient, setIsClient] = useState(true);
+  const navigation = useNavigate();
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("User");
+    if (loggedIn) {
+      navigation("/");
+    }
+  }
+  , [navigation]);
 
   const triggerRegister = () => {
     setIsClient(!isClient);
@@ -34,6 +45,7 @@ export default function Register() {
         </button>
         {isClient ? <RegisterClient /> : <RegisterAgency />}
       </div>
+        <ToastContainer />
     </div>
   );
 }
