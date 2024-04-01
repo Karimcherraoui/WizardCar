@@ -5,7 +5,18 @@
 // import { fetchCars } from "../../features/carsSlice";
 // import { createInvoice } from "../../features/invoicesSlice";
 
-import { Divider, Input, Select } from "@chakra-ui/react";
+import {
+  Button,
+  Divider,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Select,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { profileClient } from "../../features/clientSlice";
@@ -51,31 +62,14 @@ export default function Booking() {
     dispatch(profileClient());
   }, [dispatch]);
 
-
   //   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const clients = useSelector((state) => state.client.profile);
-  const clientId = clients.client._id;
+  const clientId = clients?.client._id;
   const car = useSelector((state) => state.car.selectedCar);
-  const carPrice = car.price;
-  const carAgence = car.idAgency;
+  const carPrice = car?.price;
+  const carAgence = car?.idAgency;
 
-
-
-  // const cars = useSelector((state) => state.Cars.cars);
-  // const settings = useSelector((state) => state.Settings.settings);
-  // const [invoice, setInvoice] = useState(null);
-
-  // const handleCreate = (e) => {
-  //   e.preventDefault();
-  //   console.log(factureForm);
-  //   dispatch(createInvoice(factureForm)).then((action) => {
-  //     const invoice = action.payload.invoice;
-  //     setInvoice(invoice);
-  //     onOpen();
-  //   });
-
-  // };
 
   const [factureForm, setFactureForm] = useState({
     idCar: id,
@@ -85,6 +79,7 @@ export default function Booking() {
 
   const [livraison, setLivraison] = useState(null);
   const [paiment, setPaiment] = useState(null);
+ 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,8 +91,10 @@ export default function Booking() {
       return;
     }
     if (name === "returnDate" && value < pickupDate) {
-      alert("vous pouvez pas choisir une date inferieur a la date de reservation");
-      return; 
+      alert(
+        "vous pouvez pas choisir une date inferieur a la date de reservation"
+      );
+      return;
     }
     setFactureForm({ ...factureForm, [name]: value });
     if (name === "pickupDate") {
@@ -112,7 +109,6 @@ export default function Booking() {
     if (name === "paymentMethod") {
       setPaiment(value === "BankTransfer");
     }
- 
   };
 
   const [pickupDate, setPickupDate] = useState("");
@@ -286,6 +282,7 @@ export default function Booking() {
           </button>
         </div>
       </form>
+    
       {/* <Modal
         isOpen={isOpen}
         onClose={onClose}
