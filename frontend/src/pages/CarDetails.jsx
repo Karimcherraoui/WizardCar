@@ -28,12 +28,12 @@ const CarDetails = () => {
   }, [dispatch, id]);
 
   const car = useSelector((state) => state.car.selectedCar);
-  const loggedIn = localStorage.getItem("User");
   const [showModal, setShowModal] = useState(false);
   const [reserveBtn, setReserveBtn] = useState(false);
 
   const handleReserveBtn = () => {
-    if (!loggedIn) {
+    const loggedIn = localStorage.getItem("User");
+    if (loggedIn !== "client" || !loggedIn == null) {
       setShowModal(true);
     } else {
       setReserveBtn(!reserveBtn);
@@ -44,8 +44,7 @@ const CarDetails = () => {
     <Helmet title={car?.brand + " " + car?.model}>
       <section className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20 mt-14">
-          <div               data-cy="car-image"
->
+          <div data-cy="car-image">
             <img
               src={car?.image}
               alt=""
@@ -207,8 +206,8 @@ const CarDetails = () => {
             <ModalHeader>Login Required</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              Vous devez être connecté pour réserver une voiture. Voulez-vous
-              vous connecter maintenant ?{" "}
+              Vous devez être connecté en tant que client pour réserver une
+              voiture. Souhaitez-vous vous connecter maintenant ?{" "}
             </ModalBody>
             <ModalFooter>
               <Button
