@@ -61,17 +61,28 @@ WizardCar is a web application designed for car rental, aimed at simplifying the
    `npm run start`
 
 ### Back End 
-
-     2. **Accéder au répertoire du Back :**
+   2. **Accéder au répertoire du Back :**
      `cd back-end`
 
    3. **Installation des dépendances :**
       `npm install`
 
+      4. **Initialisation d’environnement:**
+      Créer un fichier .env avec
+ `CONNECTION_LINK = mongodb://localhost:[port]/[Nom de DB]
+       TOKEN_SECRET = [exemple: 123456]`
+
+   
+
    ## Utilisation
 
-   **Demarrage de la partie Front-End**
+   **Demarrage de la partie Back-end**
    `npm run start`
+   
+ # Testing Cypress E2E , Component
+     `cd frontend`
+     `npx cypress open`
+   
    
 
 
