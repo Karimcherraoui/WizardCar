@@ -55,6 +55,7 @@ const Header = () => {
   const role = user ? JSON.parse(user).role : null;
   const navigate = useNavigate();
 
+  console.log(clientProfile, agenceProfile);
 
   // if (!profileAgence && !profileClient) {
   //   return <div>Loading...</div>;
@@ -143,10 +144,19 @@ const Header = () => {
                   </Center>
                   <br />
                   <Center>
-                    <p>Username</p>
+                    <p>
+                      {" "}
+                      {role === "client"
+                        ? client?.firstName + " " + client?.lastName
+                        : agence?.agencyName}
+                    </p>
                   </Center>
                   <Center>
-                    <p className="text-gray-400">Test@test.com</p>
+                    <p className="text-gray-400">
+                      {role === "client"
+                        ? client?.idUser.email
+                        : agence?.idUser.email}
+                    </p>
                   </Center>
 
                   <MenuDivider />
@@ -159,18 +169,34 @@ const Header = () => {
                     </>
                   ) : (
                     <>
-                      <MenuItem className="">Ajouter Voiture</MenuItem>
-                      <MenuItem onClick={() => navigate("/agence")}>
+                      <MenuItem
+                        className=""
+                        onClick={() => navigate("/agence")}
+                      >
+                        Dashboard
+                      </MenuItem>
+
+                      <MenuItem
+                        className=""
+                        onClick={() => navigate("/agence/car-create")}
+                      >
+                        Ajouter Voiture
+                      </MenuItem>
+                      <MenuItem onClick={() => navigate("/agence/profile")}>
                         Profile
                       </MenuItem>
-                      <MenuItem>Mes Voitures</MenuItem>
-                      <MenuItem>Mes Commandes</MenuItem>
+                      <MenuItem onClick={() => navigate("/agence/cars")}>
+                        Mes Voitures
+                      </MenuItem>
+                      <MenuItem onClick={() => navigate("/agence/reservation")}>
+                        Reservations
+                      </MenuItem>
                     </>
                   )}
                   <MenuItem
                     onClick={() => {
                       localStorage.removeItem("User");
-                      window.location.reload();
+                      navigate("/");
                     }}
                   >
                     Logout
