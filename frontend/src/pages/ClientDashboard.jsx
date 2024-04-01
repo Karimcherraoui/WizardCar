@@ -2,6 +2,7 @@ import { Button, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import { ClientForm } from "../components/Forms/ClientForm";
 import { TableFacture } from "../components/Tables/TableFacture";
+import { TableFactureClient } from "../components/Tables/TableFactureClient";
 
 const ClientDashboard = () => {
   const [switchForm, setSwitchForm] = useState(true);
@@ -36,7 +37,7 @@ const ClientDashboard = () => {
           Reservations
         </Button>
       </Flex>
-      {switchForm ? <ClientForm /> : <TableFacture />}
+      {switchForm ? <ClientForm /> : <TableFactureClient />}
     </>
   );
 };
