@@ -60,11 +60,11 @@ export const AuthController = {
 
       const user = await User.findOne({ email });
       if (!user) {
-        return res.status(400).json({ error: "User not found" });
+        return res.status(400).json({ error: "Email incorrect" });
       }
       const validPassword = await argon2.verify(user.password, password);
       if (!validPassword) {
-        return res.status(400).json({ error: "Invalid password" });
+        return res.status(400).json({ error: "Password incorrect" });
       }
 
       const tokenKey = jwt.sign(
