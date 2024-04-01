@@ -165,7 +165,7 @@ const Header = () => {
                       <MenuItem onClick={() => navigate("/client")}>
                         Profile
                       </MenuItem>
-                      <MenuItem>Mes Factures</MenuItem>
+                      <MenuItem>Mes Reservations</MenuItem>
                     </>
                   ) : (
                     <>
