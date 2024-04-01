@@ -60,7 +60,7 @@ WizardCar is a web application designed for car rental, aimed at simplifying the
    **Demarrage de la partie Front-End**
    `npm run start`
 
-   ### Back End 
+### Back End 
 
      2. **Accéder au répertoire du Back :**
      `cd back-end`
