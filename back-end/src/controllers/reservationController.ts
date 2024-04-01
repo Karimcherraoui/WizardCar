@@ -66,6 +66,20 @@ export const reservationController = {
     }
   },
 
+    getAllReservationsClient: async (req: Request, res: Response) => {
+      try {
+        const idClient = req.params.id;
+        const reservations = await Reservation.find({ idClient })
+          .populate("idCar")
+          .populate("idAgence");
+  
+        res.status(200).json({ reservations });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+      }
+    },
+
   createReservation: async (req: Request, res: Response) => {
     try {
       const data = registrationSchema.parse(req.body);
