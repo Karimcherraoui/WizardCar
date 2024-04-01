@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signupClient } from "../../features/authSlice";
+import { useNavigate } from "react-router";
 
 export default function RegisterClient() {
   const [localSettings, setLocalSettings] = useState({
     role: "client",
   });
   const dispatch = useDispatch();
+  const navigation = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,7 +18,7 @@ export default function RegisterClient() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = { ...localSettings };
-    dispatch(signupClient({ form }));
+    dispatch(signupClient({ form, navigate: navigation }));
   };
 
   return (
@@ -36,7 +38,7 @@ export default function RegisterClient() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="firstName"
                     name="firstName"
                     type="text"
@@ -54,7 +56,7 @@ export default function RegisterClient() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="lastName"
                     name="lastName"
                     type="text"
@@ -75,7 +77,7 @@ export default function RegisterClient() {
                   <input
                   data-cy="cin-user"
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="cin"
                     name="cin"
                     type="text"
@@ -93,7 +95,7 @@ export default function RegisterClient() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id=" num_permis"
                     name="licenseNumber"
                     type="text"
@@ -114,7 +116,7 @@ export default function RegisterClient() {
                   <select
                   data-cy="genre"
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="genre"
                     name="genre"
                     type="text"
@@ -129,7 +131,7 @@ export default function RegisterClient() {
                 <div className="relative w-full">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="email"
                     name="email"
                     type="text"
@@ -150,7 +152,7 @@ export default function RegisterClient() {
                   <input
                   data-cy="password"
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="password"
                     name="password"
                     type="password"
@@ -168,7 +170,7 @@ export default function RegisterClient() {
                   <input
                   data-cy="confirmPassword"
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="passwordConfirmation"
                     name="confirmPassword"
                     type="password"
@@ -188,7 +190,7 @@ export default function RegisterClient() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="expiration"
                     name="expiration"
                     type="text"
@@ -206,7 +208,7 @@ export default function RegisterClient() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="phone"
                     name="phone"
                     type="text"
@@ -225,7 +227,7 @@ export default function RegisterClient() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="nationalite"
                     name="country"
                     type="text"
@@ -243,7 +245,7 @@ export default function RegisterClient() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="region"
                     name="region"
                     type="text"
@@ -263,7 +265,7 @@ export default function RegisterClient() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="ville"
                     name="city"
                     type="text"
@@ -281,7 +283,7 @@ export default function RegisterClient() {
                 <div className="relative">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="adresse"
                     name="address"
                     type="text"
@@ -300,7 +302,7 @@ export default function RegisterClient() {
                 <div className="relative ">
                   <input
                     onChange={handleChange}
-                    autocomplete="off"
+                    autoComplete="off"
                     id="zip"
                     name="zipCode"
                     type="text"
